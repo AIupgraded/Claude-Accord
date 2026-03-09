@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | Claude Accord</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">Claude <span>Accord</span></a>
+      <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guest.html">Preview</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="container">
+    <div class="form-container">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Log in to access your prompt library.</p>
+      <div class="alert"></div>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="Your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Log In</button>
+      </form>
+      <p style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:0.9rem;">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="gdpr.html">Privacy / GDPR</a>
+      </div>
+      <p>&copy; 2026 Claude Accord. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

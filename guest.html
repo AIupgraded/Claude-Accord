@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Preview | Claude Accord</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">Claude <span>Accord</span></a>
+      <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guest.html" class="active">Preview</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="auth-logged-out"><a href="login.html" class="btn btn-ghost">Log in</a></li>
+        <li class="auth-logged-out"><a href="signup.html" class="btn btn-primary">Sign up</a></li>
+        <li class="auth-logged-in" style="display:none"><a href="#" onclick="handleLogout()" class="btn btn-ghost">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Preview Section -->
+  <section class="section">
+    <div class="container">
+      <h2>Prompt Library Preview</h2>
+      <p class="section-sub">Here's a taste of what's inside. Sign up to unlock the full library.</p>
+
+      <!-- Visible prompts -->
+      <div class="features">
+        <div class="card">
+          <span class="icon">&#9997;&#65039;</span>
+          <h3>Email Writer</h3>
+          <p>"Write a professional email to [recipient] about [topic]. Keep it concise, friendly, and action-oriented..."</p>
+        </div>
+        <div class="card">
+          <span class="icon">&#128161;</span>
+          <h3>Brainstorm Ideas</h3>
+          <p>"Generate 10 creative ideas for [project/topic]. For each idea, include a one-sentence description and potential impact..."</p>
+        </div>
+        <div class="card">
+          <span class="icon">&#128202;</span>
+          <h3>Data Summarizer</h3>
+          <p>"Analyze the following data and provide: key trends, anomalies, and 3 actionable recommendations..."</p>
+        </div>
+      </div>
+
+      <!-- Locked / Blurred prompts -->
+      <div class="locked-content" style="margin-top: 40px;">
+        <div class="blur-overlay">
+          <div class="features">
+            <div class="card">
+              <span class="icon">&#128640;</span>
+              <h3>Business Strategy Prompt</h3>
+              <p>Create a comprehensive go-to-market strategy for a new SaaS product targeting mid-market companies in the healthcare sector...</p>
+            </div>
+            <div class="card">
+              <span class="icon">&#127917;</span>
+              <h3>Creative Story Builder</h3>
+              <p>Write a short story outline with compelling characters, plot twists, and emotional arcs based on the theme of...</p>
+            </div>
+            <div class="card">
+              <span class="icon">&#128187;</span>
+              <h3>Code Review Assistant</h3>
+              <p>Review the following code for security vulnerabilities, performance issues, and best practice violations. Provide specific fix suggestions...</p>
+            </div>
+          </div>
+        </div>
+        <div class="lock-message">
+          <h3>Unlock Full Access</h3>
+          <p>Sign up to access 200+ curated prompts across all tiers.</p>
+          <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="gdpr.html">Privacy / GDPR</a>
+      </div>
+      <p>&copy; 2026 Claude Accord. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
