@@ -3,94 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude - Accord | AI-Powered Prompt Library</title>
+  <title>Claude Accord</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav>
-    <div class="container">
-      <a href="index.html" class="logo">Claude <span>Accord</span></a>
-      <button class="hamburger" onclick="toggleNav()">&#9776;</button>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="guest.html">Preview</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li class="auth-logged-out"><a href="login.html" class="btn btn-ghost">Log in</a></li>
-        <li class="auth-logged-out"><a href="signup.html" class="btn btn-primary">Sign up</a></li>
-        <li class="auth-logged-in" style="display:none"><a href="#" onclick="handleLogout()" class="btn btn-ghost">Log out</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <!-- Hero -->
   <section class="hero">
-    <div class="container">
-      <h1>Your AI Prompt Library,<br><span>Organized &amp; Ready</span></h1>
-      <p>Curated prompts for personal use, business workflows, and creative projects. Get more from AI with less effort.</p>
-      <div class="btn-group">
-        <a href="signup.html" class="btn btn-primary">Get Started Free</a>
-        <a href="guest.html" class="btn btn-outline">Preview as Guest</a>
+    <div class="hero-content">
+      <h1>Claude<br><em>Accord</em></h1>
+      <p class="tagline">Stop scrolling. Start thinking.</p>
+
+      <div class="tier-buttons">
+        <button class="tier-btn" data-tier="personal">Personal</button>
+        <button class="tier-btn" data-tier="business">Business</button>
+        <button class="tier-btn" data-tier="creative">Creative</button>
+      </div>
+
+      <div class="cta-wrapper">
+        <button class="cta-btn" id="stepInBtn">Step In</button>
+        <span class="cta-sub">click here</span>
       </div>
     </div>
+
+    <div class="hero-rule"></div>
+
+    <footer class="hero-footer">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="gdpr.html">Privacy</a>
+    </footer>
   </section>
 
-  <!-- Features -->
-  <section class="section">
-    <div class="container">
-      <h2>Why Claude Accord?</h2>
-      <p class="section-sub">Choose the tier that fits your needs. Every tier gives you access to expertly crafted prompts.</p>
-      <div class="features">
-        <div class="card">
-          <span class="icon">&#127919;</span>
-          <h3>Personal</h3>
-          <p>Everyday prompts for productivity, learning, writing, and personal growth. Perfect for individuals exploring AI.</p>
-        </div>
-        <div class="card">
-          <span class="icon">&#128188;</span>
-          <h3>Business</h3>
-          <p>Professional prompts for marketing, sales, HR, operations, and strategy. Built for teams that want results.</p>
-        </div>
-        <div class="card">
-          <span class="icon">&#127912;</span>
-          <h3>Creative</h3>
-          <p>Prompts for writers, designers, musicians, and content creators. Unlock your creative potential with AI.</p>
-        </div>
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <h2>Welcome</h2>
+      <p class="modal-sub">Choose how you'd like to enter.</p>
+      <div class="modal-options">
+        <a href="guest.html" class="modal-option">
+          <span class="option-label">Guest</span>
+          <span class="option-desc">Browse freely, no account needed</span>
+        </a>
+        <a href="login.html" class="modal-option">
+          <span class="option-label">Log In</span>
+          <span class="option-desc">Access your saved prompts</span>
+        </a>
+        <a href="signup.html" class="modal-option">
+          <span class="option-label">Sign Up</span>
+          <span class="option-desc">Create your account</span>
+        </a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Email Capture -->
-  <section class="section">
-    <div class="container">
-      <div class="email-capture">
-        <h2>Stay in the Loop</h2>
-        <p>Get notified when we add new prompts and features. No spam, ever.</p>
-        <div class="alert"></div>
-        <form class="email-form" onsubmit="handleEmailCapture(event)">
-          <input type="email" id="capture-email" placeholder="you@email.com" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
-      </div>
-    </div>
-  </section>
+  <script>
+    const stepInBtn = document.getElementById('stepInBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="gdpr.html">Privacy / GDPR</a>
-      </div>
-      <p>&copy; 2026 Claude Accord. All rights reserved.</p>
-    </div>
-  </footer>
+    stepInBtn.addEventListener('click', () => {
+      modalOverlay.classList.add('active');
+    });
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="js/supabase-config.js"></script>
-  <script src="js/auth.js"></script>
+    modalClose.addEventListener('click', () => {
+      modalOverlay.classList.remove('active');
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modalOverlay.classList.remove('active');
+      }
+    });
+
+    // Tier button selection
+    document.querySelectorAll('.tier-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  </script>
 </body>
 </html>
