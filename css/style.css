@@ -30,6 +30,9 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+}
+
+body.landing {
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -842,7 +845,7 @@ footer:not(.hero-footer) .footer-links a:hover {
 
 /* Phone landscape — allow scroll */
 @media (max-height: 500px) {
-  body {
+  body.landing {
     height: auto;
     overflow: auto;
   }
