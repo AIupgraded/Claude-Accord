@@ -83,6 +83,8 @@ a:hover {
   justify-content: center;
   padding: 2vh 40px 6vh;
   min-height: 0;
+  position: relative;
+  padding-bottom: 8vh;
 }
 
 .hero-content {
@@ -186,18 +188,21 @@ a:hover {
   width: 60px;
   height: 1px;
   background: var(--border);
-  margin-top: auto;
-  margin-bottom: 0;
-  flex-shrink: 0;
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .hero-footer {
   display: flex;
   justify-content: center;
   gap: clamp(16px, 3vw, 32px);
-  padding-bottom: 2vh;
-  flex-shrink: 0;
-  margin-bottom: 0;
+  position: absolute;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .hero-footer a {
