@@ -61,7 +61,7 @@ a:hover {
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 400;
   color: var(--text-heading);
-  letter-spacing: 0.35em;
+  letter-spacing: 0.08em;
 }
 
 .site-title em {
@@ -89,7 +89,7 @@ a:hover {
   align-items: center;
   text-align: center;
   max-width: 900px;
-  gap: clamp(16px, 4vh, 48px);
+  gap: clamp(24px, 5vh, 60px);
 }
 
 .tagline {
