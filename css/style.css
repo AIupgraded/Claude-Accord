@@ -69,12 +69,14 @@ a:hover {
 /* ===== Hero ===== */
 
 .hero {
-  min-height: calc(100vh - 73px);
+  height: calc(100vh - 73px);
+  max-height: calc(100vh - 73px);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 80px;
+  padding: 40px 80px;
 }
 
 .hero-content {
