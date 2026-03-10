@@ -21,12 +21,6 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -36,6 +30,10 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -54,15 +52,16 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 24px 40px;
+  padding: 2vh 40px;
   border-bottom: 1px solid var(--gold);
+  flex-shrink: 0;
 }
 
 .site-title {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 400;
   color: var(--text-heading);
-  letter-spacing: 2px;
+  letter-spacing: 0.35em;
 }
 
 .site-title em {
@@ -74,31 +73,36 @@ a:hover {
 /* ===== Hero ===== */
 
 .hero {
-  height: calc(100vh - 73px);
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 80px;
+  justify-content: center;
+  padding: 2vh 40px;
+  min-height: 0;
 }
 
 .hero-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   max-width: 900px;
-  gap: 5vh;
+  gap: clamp(16px, 4vh, 48px);
 }
 
 .tagline {
-  font-size: 2.2rem;
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
   color: var(--text);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.5px;
+}
+
+.tagline strong {
+  font-weight: 800;
+  color: var(--text-heading);
 }
 
 /* ===== Tier Buttons ===== */
@@ -114,9 +118,9 @@ a:hover {
   border: 1px solid rgba(201, 169, 110, 0.4);
   color: var(--text);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.85rem, 1.5vw, 1.15rem);
   font-weight: 700;
-  padding: 16px 40px;
+  padding: clamp(10px, 1.5vh, 16px) clamp(20px, 3vw, 40px);
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 1px;
@@ -148,9 +152,9 @@ a:hover {
   border: 1px solid var(--gold);
   color: var(--gold);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: 600;
-  padding: 16px 56px;
+  padding: clamp(12px, 1.5vh, 16px) clamp(36px, 5vw, 56px);
   cursor: pointer;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -179,14 +183,15 @@ a:hover {
   width: 60px;
   height: 1px;
   background: var(--border);
-  margin: 16px 0;
+  margin: 1.5vh 0;
+  flex-shrink: 0;
 }
 
 .hero-footer {
   display: flex;
   justify-content: center;
-  gap: 32px;
-  padding-bottom: 24px;
+  gap: clamp(16px, 3vw, 32px);
+  padding-bottom: 2vh;
   flex-shrink: 0;
 }
 
@@ -774,22 +779,20 @@ footer:not(.hero-footer) .footer-links a:hover {
 
 @media (max-width: 768px) {
   .hero {
-    padding: 40px 28px;
-  }
-
-  .tagline {
-    font-size: 1.6rem;
-    margin-bottom: 48px;
+    padding: 2vh 20px;
   }
 
   .tier-buttons {
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 48px;
   }
 
   .tier-btn {
     text-align: center;
+  }
+
+  .site-header {
+    padding: 1.5vh 20px;
   }
 
   .modal {
@@ -832,7 +835,7 @@ footer:not(.hero-footer) .footer-links a:hover {
 }
 
 @media (max-width: 480px) {
-  .tagline {
-    font-size: 1.3rem;
+  .hero-footer a {
+    font-size: 0.75rem;
   }
 }
