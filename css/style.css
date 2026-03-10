@@ -107,7 +107,7 @@ a:hover {
 
 .tier-btn {
   background: transparent;
-  border: 1px solid var(--gold);
+  border: 1px solid rgba(201, 169, 110, 0.4);
   color: var(--text);
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.15rem;
@@ -140,9 +140,9 @@ a:hover {
 }
 
 .cta-btn {
-  background: transparent;
+  background: var(--gold);
   border: 1px solid var(--gold);
-  color: var(--gold);
+  color: var(--bg);
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.2rem;
   font-weight: 600;
@@ -161,7 +161,7 @@ a:hover {
 .cta-sub {
   display: block;
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: rgba(10, 10, 10, 0.6);
   font-style: italic;
   font-weight: 400;
   letter-spacing: 1px;
