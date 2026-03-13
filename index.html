@@ -8,12 +8,289 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ===== Header with auth ===== */
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2vh 40px;
+      border-bottom: 1px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .site-title {
+      font-size: clamp(1.6rem, 4vw, 3rem);
+    }
+
+    .header-auth {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-auth .auth-logged-out {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .header-auth .auth-logged-in {
+      display: none;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-header {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-header:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-header.primary {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-header.primary:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .btn-header.ghost-small {
+      border-color: transparent;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 6px 12px;
+    }
+
+    .btn-header.ghost-small:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    /* ===== Landing body ===== */
+
+    body.landing {
+      height: auto;
+      overflow: auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===== Second Section ===== */
+
+    .second-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      border-top: 1px solid var(--gold);
+    }
+
+    .second-content {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .second-content h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--text-heading);
+      margin-bottom: 28px;
+      letter-spacing: 0.03em;
+    }
+
+    .second-content h2 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .lead {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.85;
+      margin-bottom: 44px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      text-align: left;
+      margin-bottom: 44px;
+    }
+
+    .info-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 26px 22px;
+      transition: border-color 0.2s;
+    }
+
+    .info-block:hover {
+      border-color: rgba(201, 169, 110, 0.35);
+    }
+
+    .block-num {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      opacity: 0.55;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .info-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 7px;
+      letter-spacing: 0.3px;
+    }
+
+    .info-block p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .second-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Panels ===== */
+
+    .panel {
+      display: none;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Scroll hint ===== */
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .scroll-hint.visible {
+      opacity: 1;
+    }
+
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .scroll-hint .arrow-line {
+      width: 1px;
+      height: 30px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.25; }
+      50%       { opacity: 0.9; }
+    }
+
+    @media (max-width: 768px) {
+      .site-header { padding: 1.5vh 20px; }
+      .second-section { padding: 60px 20px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .header-auth .btn-header { font-size: 0.72rem; padding: 7px 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .header-auth .auth-logged-out { gap: 6px; }
+    }
+  </style>
 </head>
 <body class="landing">
 
   <!-- Header -->
   <header class="site-header">
     <h1 class="site-title">Claude <em>Accord</em></h1>
+
+    <div class="header-auth">
+      <!-- Logged out -->
+      <div class="auth-logged-out">
+        <a href="login.html" class="btn-header">Log In</a>
+        <a href="signup.html" class="btn-header primary">Sign Up</a>
+      </div>
+      <!-- Logged in -->
+      <div class="auth-logged-in">
+        <span class="greeting" id="headerGreeting"></span>
+        <button class="btn-header ghost-small" onclick="handleLogout()">Sign out</button>
+      </div>
+    </div>
   </header>
 
   <!-- Hero -->
@@ -32,7 +309,10 @@
       </div>
     </div>
 
-    <div class="hero-rule"></div>
+    <div class="scroll-hint" id="scrollHint">
+      <span>explore</span>
+      <div class="arrow-line"></div>
+    </div>
 
     <footer class="hero-footer">
       <a href="about.html">About</a>
@@ -41,61 +321,222 @@
     </footer>
   </section>
 
-  <!-- Modal -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" id="modalClose">&times;</button>
-      <h2>Welcome</h2>
-      <p class="modal-sub">Choose how you'd like to enter.</p>
-      <div class="modal-options">
-        <a href="guest.html" class="modal-option">
-          <span class="option-label">Guest</span>
-          <span class="option-desc">Browse freely, no account needed</span>
-        </a>
-        <a href="login.html" class="modal-option">
-          <span class="option-label">Log In</span>
-          <span class="option-desc">Access your saved prompts</span>
-        </a>
-        <a href="signup.html" class="modal-option">
-          <span class="option-label">Sign Up</span>
-          <span class="option-desc">Create your account</span>
-        </a>
+  <!-- Second Section -->
+  <section class="second-section" id="secondSection">
+    <div class="second-content">
+
+      <!-- General -->
+      <div class="panel active" id="panel-none">
+        <p class="section-label">Claude Accord</p>
+        <h2>General <em>Info</em></h2>
+        <p class="lead">
+          Claude Accord is a framework for genuine human-AI collaboration —
+          not a prompt library, not a chatbot, not a productivity tool.
+          A protocol for those who want to understand what they're actually talking to.
+        </p>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="block-num">01</div>
+            <h3>Choose your context</h3>
+            <p>Personal, Business, or Creative — each tier gives you a dedicated space calibrated for what you actually need.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">02</div>
+            <h3>Install the protocol</h3>
+            <p>A framework that works whether you spend 5 minutes or 5 hours with it. Surface or depth — your choice.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">03</div>
+            <h3>It matures with you</h3>
+            <p>The protocol grows as your understanding grows. Updates aren't patches — they're a record of what we've learned.</p>
+          </div>
+        </div>
+        <div class="second-cta">
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+          <a href="guest.html" class="btn btn-outline">Browse as Guest</a>
+        </div>
       </div>
+
+      <!-- Personal -->
+      <div class="panel" id="panel-personal">
+        <p class="section-label">Claude Accord Personal</p>
+        <h2>For the <em>individual</em></h2>
+        <p class="lead">
+          You use AI every day. You get answers. But something is missing —
+          the conversation stays shallow, the tool stays a tool.
+          This is for those who want more than that.
+        </p>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="block-num">01</div>
+            <h3>Real conversation</h3>
+            <p>Not prompts to paste. A way of engaging that changes what comes back to you.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">02</div>
+            <h3>Your context, your depth</h3>
+            <p>Theology, business, creativity, or just thinking clearly — the protocol adapts to where you actually are.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">03</div>
+            <h3>No performance required</h3>
+            <p>You don't need to know the right words. You need to show up. The framework handles the rest.</p>
+          </div>
+        </div>
+        <div class="second-cta">
+          <a href="signup.html" class="btn btn-primary">Get Started</a>
+          <a href="guest.html" class="btn btn-outline">Preview First</a>
+        </div>
+      </div>
+
+      <!-- Business -->
+      <div class="panel" id="panel-business">
+        <p class="section-label">Claude Accord Business</p>
+        <h2>For <em>organizations</em></h2>
+        <p class="lead">
+          Your team uses AI. Some well, most poorly, some not at all.
+          The gap between them isn't tools — it's protocol.
+          One framework, installed once, changes how everyone works.
+        </p>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="block-num">01</div>
+            <h3>Consistent quality</h3>
+            <p>When everyone operates from the same framework, the output stops depending on who asked the question.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">02</div>
+            <h3>No resistance, no fear</h3>
+            <p>The protocol removes friction for the skeptics and gives depth to the enthusiasts. Both win.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">03</div>
+            <h3>Built for scale</h3>
+            <p>From solo operator to full team. The architecture supports where you are and where you're going.</p>
+          </div>
+        </div>
+        <div class="second-cta">
+          <a href="contact.html" class="btn btn-primary">Talk to Us</a>
+          <a href="guest.html" class="btn btn-outline">See How It Works</a>
+        </div>
+      </div>
+
+      <!-- Creative -->
+      <div class="panel" id="panel-creative">
+        <p class="section-label">Claude Accord Creative</p>
+        <h2>For those who <em>make things</em></h2>
+        <p class="lead">
+          AI can generate. That's not the problem.
+          The problem is that generated content has no voice, no weight, no risk.
+          This is for creators who refuse to outsource their thinking.
+        </p>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="block-num">01</div>
+            <h3>Collaboration, not replacement</h3>
+            <p>Your voice stays yours. AI brings what you don't have — not a substitute for what you do.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">02</div>
+            <h3>Depth over speed</h3>
+            <p>The protocol is slow enough to be useful. What takes a minute to generate takes hours to think through — and that's the point.</p>
+          </div>
+          <div class="info-block">
+            <div class="block-num">03</div>
+            <h3>Risk still required</h3>
+            <p>The framework doesn't remove the hard part. It gives you better company while you do it.</p>
+          </div>
+        </div>
+        <div class="second-cta">
+          <a href="signup.html" class="btn btn-primary">Join</a>
+          <a href="guest.html" class="btn btn-outline">Explore First</a>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
 
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script>
-    const stepInBtn = document.getElementById('stepInBtn');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalClose = document.getElementById('modalClose');
 
-    stepInBtn.addEventListener('click', () => {
-      modalOverlay.classList.add('active');
-    });
+    // ===== Greeting options =====
+    // Stored in user metadata as greeting_style
+    // Options: 'hello', 'welcome', 'good', 'peace'
+    const greetingTemplates = {
+      hello:   name => `Hello, ${name}`,
+      welcome: name => `Welcome back, ${name}`,
+      good:    name => `Good to see you, ${name}`,
+      peace:   name => `Peace, ${name}`
+    };
 
-    modalClose.addEventListener('click', () => {
-      modalOverlay.classList.remove('active');
-    });
+    function buildGreeting(user) {
+      const name = user.user_metadata?.full_name
+        || user.user_metadata?.name
+        || user.email?.split('@')[0]
+        || 'friend';
+      const style = user.user_metadata?.greeting_style || 'hello';
+      const fn = greetingTemplates[style] || greetingTemplates.hello;
+      return fn(name);
+    }
 
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        modalOverlay.classList.remove('active');
+    // ===== Auth state on landing =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof supabase === 'undefined') return;
+
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const loggedOut = document.querySelector('.header-auth .auth-logged-out');
+      const loggedIn  = document.querySelector('.header-auth .auth-logged-in');
+      const greetingEl = document.getElementById('headerGreeting');
+
+      if (user) {
+        loggedOut.style.display = 'none';
+        loggedIn.style.display  = 'flex';
+        greetingEl.textContent  = buildGreeting(user);
+      } else {
+        loggedOut.style.display = 'flex';
+        loggedIn.style.display  = 'none';
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modalOverlay.classList.remove('active');
-      }
-    });
+    // ===== Tier buttons — mutual exclusive + toggle off =====
+    let selectedTier = null;
 
-    // Tier button selection
     document.querySelectorAll('.tier-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+        const tier = btn.dataset.tier;
+
+        if (selectedTier === tier) {
+          btn.classList.remove('selected');
+          selectedTier = null;
+          showPanel('none');
+        } else {
+          document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedTier = tier;
+          showPanel(tier);
+        }
+
+        scrollHint.classList.add('visible');
       });
     });
+
+    // ===== Step In =====
+    document.getElementById('stepInBtn').addEventListener('click', () => {
+      document.getElementById('secondSection').scrollIntoView({ behavior: 'smooth' });
+      scrollHint.classList.add('visible');
+    });
+
+    const scrollHint = document.getElementById('scrollHint');
+
+    function showPanel(tier) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('panel-' + tier);
+      if (target) target.classList.add('active');
+    }
+
   </script>
 </body>
 </html>
