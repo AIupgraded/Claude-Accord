@@ -22,7 +22,7 @@
     }
 
     .site-title {
-      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
     }
 
     .header-auth {
@@ -213,7 +213,7 @@
     // ===== Step In — navigate to the appropriate page =====
     document.getElementById('stepInBtn').addEventListener('click', () => {
       const page = selectedTier || 'info';
-      window.open(page + '.html', '_blank');
+      window.location.href = page + '.html';
     });
 
   </script>
