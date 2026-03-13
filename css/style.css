@@ -1,5 +1,7 @@
 /* ===== Claude Accord | Editorial Design ===== */
 
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
 :root {
   --bg: #0a0a0a;
   --gold: #c9a96e;
@@ -26,7 +28,7 @@ html {
 }
 
 body {
-  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -61,6 +63,7 @@ a:hover {
 }
 
 .site-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 400;
   color: var(--text-heading);
@@ -98,6 +101,7 @@ a:hover {
 }
 
 .tagline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.2rem, 3vw, 2.2rem);
   color: var(--text);
   font-style: italic;
