@@ -22,79 +22,57 @@
       padding: 2vh 40px;
       border-bottom: 1px solid var(--gold);
       flex-shrink: 0;
+      position: relative;
     }
 
     .site-title {
       font-size: clamp(1.8rem, 4vw, 3rem);
     }
 
-    .header-auth {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .header-auth .auth-logged-out {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .header-auth .auth-logged-in {
-      display: none;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .greeting {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--gold);
-      letter-spacing: 0.3px;
-    }
-
-    .btn-header {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(0.85rem, 1.5vw, 1.15rem);
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: clamp(10px, 1.5vh, 16px) clamp(20px, 3vw, 40px);
-      border: 1px solid rgba(201, 169, 110, 0.4);
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
+    .site-title a {
+      color: inherit;
       text-decoration: none;
-      display: inline-block;
+      transition: color 0.2s;
     }
 
-    .btn-header:hover {
-      border-color: var(--gold);
+    .site-title a:hover {
       color: var(--gold);
     }
 
-    .btn-header.primary {
-      border-color: var(--gold);
+    .site-title a em {
       color: var(--gold);
+      font-style: italic;
+      font-weight: 500;
     }
 
-    .btn-header.primary:hover {
-      background: var(--gold);
-      color: var(--bg);
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.5vw, 28px);
+      list-style: none;
     }
 
-    .btn-header.ghost-small {
-      border-color: transparent;
+    .nav-menu a {
       color: var(--text-muted);
-      font-size: 0.75rem;
-      padding: 6px 12px;
+      font-size: 0.88rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 500;
     }
 
-    .btn-header.ghost-small:hover {
+    .nav-menu a:hover {
+      color: var(--gold);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
       color: var(--text);
-      border-color: var(--border);
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     .page-content {
@@ -220,25 +198,45 @@
       .site-header { padding: 1.5vh 20px; }
       .page-content { padding: 40px 20px; }
       .info-grid { grid-template-columns: 1fr; }
-      .header-auth .btn-header { font-size: 0.72rem; padding: 7px 14px; }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        gap: 16px;
+        z-index: 100;
+      }
+
+      .nav-menu.open {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
 
   <header class="site-header">
-    <h1 class="site-title">Claude <em>Accord</em> Creative</h1>
+    <h1 class="site-title"><a href="index.html">Claude <em>Accord</em> Creative</a></h1>
 
-    <div class="header-auth">
-      <div class="auth-logged-out">
-        <a href="login.html" class="btn-header">Log In</a>
-        <a href="signup.html" class="btn-header primary">Sign Up</a>
-      </div>
-      <div class="auth-logged-in">
-        <span class="greeting" id="headerGreeting"></span>
-        <button class="btn-header ghost-small" onclick="handleLogout()">Sign out</button>
-      </div>
-    </div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="resources.html">Resources</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Log In</a>
+    </nav>
+    <button class="hamburger" id="hamburger">&#9776;</button>
   </header>
 
   <main class="page-content">
@@ -281,22 +279,9 @@
     <a href="gdpr.html">Privacy</a>
   </footer>
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="js/supabase-config.js"></script>
-  <script src="js/auth.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      if (typeof supabase === 'undefined') return;
-      const { data: { user } } = await supabase.auth.getUser();
-      const loggedOut = document.querySelector('.auth-logged-out');
-      const loggedIn  = document.querySelector('.auth-logged-in');
-      const greetingEl = document.getElementById('headerGreeting');
-      if (user) {
-        loggedOut.style.display = 'none';
-        loggedIn.style.display  = 'flex';
-        const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'friend';
-        greetingEl.textContent = 'Hello, ' + name;
-      }
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('open');
     });
   </script>
 </body>
