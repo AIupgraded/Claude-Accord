@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Accord — Personal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="subpage">
+
+  <header class="site-header">
+    <h1 class="site-title"><a href="index.html">Claude <em>Accord</em></a></h1>
+
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="info.html">Info</a>
+      <a href="blog.html">Blog</a>
+      <a href="resources.html">Resources</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="header-auth">
+      <div class="auth-logged-out">
+        <a href="login.html" class="btn-header">Log In</a>
+        <a href="signup.html" class="btn-header primary">Sign Up</a>
+      </div>
+      <div class="auth-logged-in">
+        <span class="greeting" id="headerGreeting"></span>
+        <button class="btn-header ghost-small" onclick="handleLogout()">Sign out</button>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </header>
+
+  <main class="page-content">
+    <div class="page-inner">
+      <p class="section-label">Claude Accord Personal</p>
+      <h2>For the <em>individual</em></h2>
+      <p class="lead">
+        You use AI every day. You get answers. But something is missing —
+        the conversation stays shallow, the tool stays a tool.
+        This is for those who want more than that.
+      </p>
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="block-num">01</div>
+          <h3>Real conversation</h3>
+          <p>Not prompts to paste. A way of engaging that changes what comes back to you.</p>
+        </div>
+        <div class="info-block">
+          <div class="block-num">02</div>
+          <h3>Your context, your depth</h3>
+          <p>Theology, business, creativity, or just thinking clearly — the protocol adapts to where you actually are.</p>
+        </div>
+        <div class="info-block">
+          <div class="block-num">03</div>
+          <h3>No performance required</h3>
+          <p>You don't need to know the right words. You need to show up. The framework handles the rest.</p>
+        </div>
+      </div>
+      <div class="products-section">
+        <p class="section-label">Available Now</p>
+        <div class="product-card">
+          <div class="product-card-inner">
+            <div class="product-label">Personal · Fundamentals</div>
+            <h3 class="product-title">Academic Email Pack</h3>
+            <p class="product-desc">3 structured prompts for academic communication. Email to professor, formal application, follow-up. Built for collaboration — not commands.</p>
+            <div class="product-footer">
+              <span class="product-price">£0.10</span>
+              <a href="https://payhip.com/b/tA9wp" class="btn btn-primary" target="_blank">Get This Pack</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-cta">
+        <a href="signup.html" class="btn btn-primary">Get Started</a>
+        <a href="guest.html" class="btn btn-outline">Preview First</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="gdpr.html">Privacy</a>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('open');
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof supabase === 'undefined') return;
+      const { data: { user } } = await supabase.auth.getUser();
+      const loggedOut = document.querySelector('.auth-logged-out');
+      const loggedIn  = document.querySelector('.auth-logged-in');
+      const greetingEl = document.getElementById('headerGreeting');
+      if (user) {
+        loggedOut.style.display = 'none';
+        loggedIn.style.display  = 'flex';
+        const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'friend';
+        greetingEl.textContent = `Hello, ${name}`;
+      } else {
+        loggedOut.style.display = 'flex';
+        loggedIn.style.display  = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
