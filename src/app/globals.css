@@ -1099,16 +1099,17 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--text-muted);
+  color: var(--text-heading);
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-weight: 700;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, font-size 0.2s;
   letter-spacing: 0.3px;
 }
 
 .about-toc-item:hover {
-  color: var(--text-heading);
+  color: var(--gold);
+  font-size: clamp(1.05rem, 1.9vw, 1.28rem);
 }
 
 .about-toc-item--left {
