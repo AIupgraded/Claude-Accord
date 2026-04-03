@@ -1066,3 +1066,177 @@ a:hover {
 .product-desc { font-size: 0.95rem; color: var(--muted, #888); line-height: 1.6; margin: 0 0 20px; }
 .product-footer { display: flex; align-items: center; gap: 24px; }
 .product-price { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+
+/* ===== About Page — TOC Hero ===== */
+
+.about-toc {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  margin: 20px 0 0;
+}
+
+.about-toc-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  color: var(--text-heading);
+  letter-spacing: 0.12em;
+  text-align: center;
+  line-height: 1;
+}
+
+.about-toc-left,
+.about-toc-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.about-toc-item:hover {
+  color: var(--text-heading);
+}
+
+.about-toc-item--left {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.about-toc-item--right {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.about-toc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.about-toc-item:hover .about-toc-dot {
+  transform: scale(1.5);
+  box-shadow: 0 0 8px rgba(201, 169, 110, 0.5);
+}
+
+/* ===== About Page — Sections ===== */
+
+.about-sections {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-section {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 100px;
+}
+
+.about-section:last-child {
+  border-bottom: none;
+}
+
+.about-section h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  color: var(--text-heading);
+  margin-bottom: 16px;
+  letter-spacing: 0.03em;
+}
+
+.about-section p {
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.about-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  margin: 0 0 48px;
+}
+
+/* ===== About Page — CTA ===== */
+
+.about-cta {
+  text-align: center;
+  padding: 64px 0 20px;
+}
+
+.about-cta h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: var(--text-heading);
+  margin-bottom: 28px;
+  letter-spacing: 0.05em;
+}
+
+.about-cta .tier-buttons {
+  margin-bottom: 20px;
+}
+
+.about-cta-sub {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* ===== About Page — Responsive ===== */
+
+@media (max-width: 768px) {
+  .about-toc {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .about-toc-left {
+    order: 2;
+    align-items: center;
+  }
+
+  .about-toc-title {
+    order: 1;
+  }
+
+  .about-toc-right {
+    order: 3;
+    align-items: center;
+  }
+
+  .about-toc-item--left,
+  .about-toc-item--right {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .about-toc-item--left {
+    flex-direction: row-reverse;
+  }
+
+  .about-sections {
+    padding: 0 10px;
+  }
+}
