@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import StaticNav from '@/components/StaticNav';
-import StaticFooter from '@/components/StaticFooter';
+import SubpageHeader from '@/components/SubpageHeader';
+import SubpageFooter from '@/components/SubpageFooter';
 import SupabaseProvider from '@/components/SupabaseProvider';
 import Script from 'next/script';
 
@@ -10,30 +9,34 @@ export default function ContactPage() {
   return (
     <>
       <SupabaseProvider />
-      <StaticNav activeNav="contact" />
-      <div className="container">
-        <div className="form-container" style={{ maxWidth: '560px' }}>
-          <h2>Get in Touch</h2>
-          <p className="subtitle">Have a question, suggestion, or partnership idea? We&apos;d love to hear from you.</p>
-          <div className="alert" id="contact-alert"></div>
-          <form id="contact-form">
-            <div className="form-group">
-              <label htmlFor="contact-name">Name</label>
-              <input type="text" id="contact-name" placeholder="Your name" required />
+      <div className="subpage">
+        <SubpageHeader activeNav="contact" />
+        <main className="page-content">
+          <div className="page-inner">
+            <div className="form-container" style={{ maxWidth: '560px', margin: '0 auto' }}>
+              <h2>Get in Touch</h2>
+              <p className="subtitle">Have a question, suggestion, or partnership idea? We&apos;d love to hear from you.</p>
+              <div className="alert" id="contact-alert"></div>
+              <form id="contact-form">
+                <div className="form-group">
+                  <label htmlFor="contact-name">Name</label>
+                  <input type="text" id="contact-name" placeholder="Your name" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact-email">Email</label>
+                  <input type="email" id="contact-email" placeholder="you@email.com" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact-message">Message</label>
+                  <textarea id="contact-message" placeholder="How can we help?" required></textarea>
+                </div>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
+              </form>
             </div>
-            <div className="form-group">
-              <label htmlFor="contact-email">Email</label>
-              <input type="email" id="contact-email" placeholder="you@email.com" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="contact-message">Message</label>
-              <textarea id="contact-message" placeholder="How can we help?" required></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-          </form>
-        </div>
+          </div>
+        </main>
+        <SubpageFooter />
       </div>
-      <StaticFooter />
       <Script id="contact-handler" strategy="afterInteractive">
         {`
           document.getElementById('contact-form').addEventListener('submit', async function(e) {

@@ -1,37 +1,51 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import StaticNav from '@/components/StaticNav';
-import StaticFooter from '@/components/StaticFooter';
+import SubpageHeader from '@/components/SubpageHeader';
+import SubpageFooter from '@/components/SubpageFooter';
 import SupabaseProvider from '@/components/SupabaseProvider';
 
-export const metadata: Metadata = { title: 'About | Claude Accord' };
+export const metadata: Metadata = { title: 'Claude Accord — About' };
 
 export default function AboutPage() {
   return (
     <>
       <SupabaseProvider />
-      <StaticNav activeNav="about" />
-      <div className="static-page">
-        <h1>About Claude Accord</h1>
-        <p>Claude Accord is a curated library of AI prompts designed to help you get the most out of artificial intelligence — whether for personal productivity, business workflows, or creative projects.</p>
-
-        <h2>Our Mission</h2>
-        <p>We believe that the right prompt makes all the difference. Our mission is to bridge the gap between people and AI by providing ready-to-use, expertly crafted prompts that deliver real results.</p>
-
-        <h2>How It Works</h2>
-        <ul>
-          <li><strong>Choose your tier</strong> — Personal, Business, or Creative — based on your needs.</li>
-          <li><strong>Browse prompts</strong> — Each prompt is tested, refined, and categorized for easy discovery.</li>
-          <li><strong>Copy &amp; use</strong> — Paste prompts directly into Claude, ChatGPT, or any AI assistant.</li>
-        </ul>
-
-        <h2>Who&apos;s Behind This?</h2>
-        <p>Claude Accord is built by Claudiu Cornea — a developer, creator, and AI enthusiast based in Europe. This project combines a passion for technology with a desire to make AI accessible to everyone.</p>
-
-        <h2>Open &amp; Transparent</h2>
-        <p>We respect your privacy and follow GDPR guidelines. We only collect the data necessary to provide our service. Read our <Link href="/gdpr">Privacy Policy</Link> for details.</p>
+      <div className="subpage">
+        <SubpageHeader activeNav="about" />
+        <main className="page-content">
+          <div className="page-inner">
+            <p className="section-label">Claude Accord</p>
+            <h2>About <em>Claude Accord</em></h2>
+            <p className="lead">
+              Claude Accord is a framework for genuine human-AI collaboration —
+              not a prompt library, not a chatbot, not a productivity tool.
+              A protocol for those who want to understand what they&apos;re actually talking to.
+            </p>
+            <div className="info-grid">
+              <div className="info-block">
+                <div className="block-num">01</div>
+                <h3>Choose your context</h3>
+                <p>Personal, Business, or Creative — each tier gives you a dedicated space calibrated for what you actually need.</p>
+              </div>
+              <div className="info-block">
+                <div className="block-num">02</div>
+                <h3>Install the protocol</h3>
+                <p>A framework that works whether you spend 5 minutes or 5 hours with it. Surface or depth — your choice.</p>
+              </div>
+              <div className="info-block">
+                <div className="block-num">03</div>
+                <h3>It matures with you</h3>
+                <p>The protocol grows as your understanding grows. Updates aren&apos;t patches — they&apos;re a record of what we&apos;ve learned.</p>
+              </div>
+            </div>
+            <div className="page-cta">
+              <Link href="/signup" className="btn btn-primary">Sign Up</Link>
+              <Link href="/guest" className="btn btn-outline">Browse as Guest</Link>
+            </div>
+          </div>
+        </main>
+        <SubpageFooter />
       </div>
-      <StaticFooter />
     </>
   );
 }

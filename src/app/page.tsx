@@ -13,7 +13,7 @@ export default function HomePage() {
   }
 
   function handleStepIn() {
-    const page = selectedTier || 'info';
+    const page = selectedTier || 'about';
     window.location.href = '/' + page;
   }
 
@@ -63,7 +63,6 @@ export default function HomePage() {
           </div>
 
           <footer className="hero-footer">
-            <Link href="/about">About</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/gdpr">Privacy</Link>
           </footer>

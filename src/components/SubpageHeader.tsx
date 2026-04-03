@@ -21,7 +21,7 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
 
       <nav className={`nav-menu${menuOpen ? ' open' : ''}`}>
         <Link href="/" className={activeNav === 'home' ? 'active' : ''}>Home</Link>
-        <Link href="/info" className={activeNav === 'info' ? 'active' : ''}>Info</Link>
+        <Link href="/about" className={activeNav === 'about' ? 'active' : ''}>About</Link>
         <Link href="/blog" className={activeNav === 'blog' ? 'active' : ''}>Blog</Link>
         <Link href="/resources" className={activeNav === 'resources' ? 'active' : ''}>Resources</Link>
         <Link href="/contact" className={activeNav === 'contact' ? 'active' : ''}>Contact</Link>
