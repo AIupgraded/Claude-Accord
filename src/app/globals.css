@@ -884,13 +884,10 @@ a:hover {
   font-weight: 500;
 }
 
-.subpage .nav-menu a:hover {
+.subpage .nav-menu a:hover,
+.subpage .nav-menu a.active:hover {
   color: var(--gold);
   font-size: 0.95rem;
-}
-
-.subpage .nav-menu a.active {
-  color: var(--text-heading);
 }
 
 .subpage .page-content {
