@@ -45,7 +45,7 @@ export default function AboutPage() {
                 ))}
               </div>
 
-              <h2 className="about-toc-title">About</h2>
+              <h2 className="about-toc-title"><em>About</em></h2>
 
               <div className="about-toc-right">
                 {rightItems.map(item => (
