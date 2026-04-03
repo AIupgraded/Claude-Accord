@@ -7,19 +7,19 @@ import SupabaseProvider from '@/components/SupabaseProvider';
 export const metadata: Metadata = { title: 'Claude Accord — About' };
 
 const leftItems = [
-  { id: 'ce-facem', label: 'Ce facem' },
-  { id: 'pentru-cine', label: 'Pentru cine facem' },
-  { id: 'de-ce-facem', label: 'De ce facem' },
-  { id: 'cum-am-ajuns', label: 'Cum am ajuns aici' },
-  { id: 'cine-face', label: 'Cine face' },
+  { id: 'what-we-do', label: 'What we do' },
+  { id: 'who-its-for', label: 'Who it\u2019s for' },
+  { id: 'why-we-do-it', label: 'Why we do it' },
+  { id: 'how-we-got-here', label: 'How we got here' },
+  { id: 'who-makes-it', label: 'Who makes it' },
 ];
 
 const rightItems = [
-  { id: 'ce-oferim', label: 'Ce oferim' },
-  { id: 'cum-functioneaza', label: 'Cum funcționează' },
-  { id: 'nivelurile', label: 'Nivelurile' },
-  { id: 'comunitate', label: 'Comunitate' },
-  { id: 'viziunea', label: 'Viziunea' },
+  { id: 'what-we-offer', label: 'What we offer' },
+  { id: 'how-it-works', label: 'How it works' },
+  { id: 'the-levels', label: 'The levels' },
+  { id: 'community', label: 'Community' },
+  { id: 'the-vision', label: 'The vision' },
 ];
 
 const allSections = [...leftItems, ...rightItems];

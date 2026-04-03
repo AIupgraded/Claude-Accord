@@ -1091,7 +1091,7 @@ a:hover {
 .about-toc-right {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 21px;
 }
 
 .about-toc-item {
@@ -1099,7 +1099,8 @@ a:hover {
   align-items: center;
   gap: 12px;
   color: var(--text-muted);
-  font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
   text-decoration: none;
   transition: color 0.2s;
   letter-spacing: 0.3px;
@@ -1155,8 +1156,8 @@ a:hover {
 
 .about-section h3 {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 700;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 500;
   color: var(--text-heading);
   margin-bottom: 16px;
   letter-spacing: 0.03em;
