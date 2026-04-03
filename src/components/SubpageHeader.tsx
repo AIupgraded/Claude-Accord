@@ -16,7 +16,7 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
         <h1 className="site-title">
           <Link href="/">Claude <em>Accord</em></Link>
         </h1>
-        <span className="site-slogan">Working together. Building trust.</span>
+        <span className="site-slogan"><strong>Working</strong> together. <strong>Building</strong> trust.</span>
       </div>
 
       <nav className={`nav-menu${menuOpen ? ' open' : ''}`}>

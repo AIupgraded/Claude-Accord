@@ -24,7 +24,7 @@ export default function HomePage() {
         <header className="site-header">
           <div className="site-title-group">
             <h1 className="site-title">Claude <em>Accord</em></h1>
-            <span className="site-slogan">Working together. Building trust.</span>
+            <span className="site-slogan"><strong>Working</strong> together. <strong>Building</strong> trust.</span>
           </div>
 
           <div className="header-auth">
