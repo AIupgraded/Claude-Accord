@@ -1081,7 +1081,7 @@ a:hover {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
-  color: var(--text-heading);
+  color: var(--gold);
   letter-spacing: 0.12em;
   text-align: center;
   line-height: 1;
@@ -1155,8 +1155,8 @@ a:hover {
 
 .about-section h3 {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  font-weight: 500;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
   color: var(--text-heading);
   margin-bottom: 16px;
   letter-spacing: 0.03em;
