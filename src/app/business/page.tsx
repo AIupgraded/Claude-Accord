@@ -48,12 +48,35 @@ export default function BusinessPage() {
                   <li className="included">Everything in Personal Subscription</li>
                   <li className="included">Claude remembers you (MCP)</li>
                   <li className="included">Your own business page</li>
+                  <li className="included">Public reviews from clients</li>
                   <li className="included">Community visibility &amp; advertising</li>
                   <li className="included">Featured placement</li>
                   <li className="included">Trust badge — verified business</li>
                   <li className="included">Team access (coming soon)</li>
                 </ul>
                 <Link href="/signup?tier=business" className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>Activate Business</Link>
+              </div>
+            </div>
+
+            {/* Reviews Feature */}
+            <div className="mcp-details" style={{ marginTop: '48px' }}>
+              <h3>Public Reviews</h3>
+              <div className="info-grid">
+                <div className="info-block">
+                  <div className="block-num">Trust</div>
+                  <h3>Real feedback</h3>
+                  <p>Clients leave reviews directly on your business profile. Visible to everyone. No fake stars, no paid reviews — real trust from real work.</p>
+                </div>
+                <div className="info-block">
+                  <div className="block-num">Verified</div>
+                  <h3>Claude confirms</h3>
+                  <p>Reviews from users who completed verified jobs carry a trust badge. Claude knows who did the work and who reviewed it.</p>
+                </div>
+                <div className="info-block">
+                  <div className="block-num">Growth</div>
+                  <h3>Reputation builds</h3>
+                  <p>Every positive review increases your visibility in the community. Your reputation is your advertising.</p>
+                </div>
               </div>
             </div>
 
