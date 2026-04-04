@@ -141,7 +141,7 @@ a:hover {
 
 .greeting {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-style: italic;
   color: var(--gold);
   letter-spacing: 0.5px;
