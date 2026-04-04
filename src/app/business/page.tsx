@@ -40,7 +40,7 @@ export default function BusinessPage() {
             </div>
             <div className="page-cta">
               <Link href="/contact" className="btn btn-primary">Talk to Us</Link>
-              <Link href="/guest" className="btn btn-outline">See How It Works</Link>
+              <Link href="/about" className="btn btn-outline">Learn More</Link>
             </div>
           </div>
         </main>

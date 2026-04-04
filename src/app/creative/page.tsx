@@ -40,7 +40,7 @@ export default function CreativePage() {
             </div>
             <div className="page-cta">
               <Link href="/signup" className="btn btn-primary">Join</Link>
-              <Link href="/guest" className="btn btn-outline">Explore First</Link>
+              <Link href="/about" className="btn btn-outline">Learn More</Link>
             </div>
           </div>
         </main>

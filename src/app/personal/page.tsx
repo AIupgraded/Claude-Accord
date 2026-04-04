@@ -54,7 +54,7 @@ export default function PersonalPage() {
             </div>
             <div className="page-cta">
               <Link href="/signup" className="btn btn-primary">Get Started</Link>
-              <Link href="/guest" className="btn btn-outline">Preview First</Link>
+              <Link href="/about" className="btn btn-outline">Learn More</Link>
             </div>
           </div>
         </main>
