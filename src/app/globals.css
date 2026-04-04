@@ -587,6 +587,64 @@ a:hover {
   min-height: 120px;
 }
 
+/* Password strength */
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strength-bar {
+  height: 4px;
+  flex: 1;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.strength-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  min-width: 45px;
+  text-align: right;
+}
+
+.password-rules {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.password-rules li {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.password-rules li::before {
+  content: '\2717 ';
+  color: var(--text-muted);
+}
+
+.password-rules li.passed {
+  color: var(--success);
+}
+
+.password-rules li.passed::before {
+  content: '\2713 ';
+  color: var(--success);
+}
+
 .form-error {
   color: var(--danger);
   font-size: 0.85rem;

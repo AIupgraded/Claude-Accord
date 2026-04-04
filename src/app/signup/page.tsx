@@ -38,7 +38,27 @@ function SignupContent() {
                 </div>
                 <div className="form-group">
                   <label htmlFor="signup-password">Password</label>
-                  <input type="password" id="signup-password" placeholder="Min. 6 characters" required minLength={6} />
+                  <input type="password" id="signup-password" placeholder="Min. 8 characters" required minLength={8} />
+                  <div className="password-strength" id="password-strength">
+                    <div className="strength-bars">
+                      <span className="strength-bar" />
+                      <span className="strength-bar" />
+                      <span className="strength-bar" />
+                      <span className="strength-bar" />
+                    </div>
+                    <span className="strength-label" id="strength-label"></span>
+                  </div>
+                  <ul className="password-rules" id="password-rules">
+                    <li id="rule-length">At least 8 characters</li>
+                    <li id="rule-upper">One uppercase letter</li>
+                    <li id="rule-lower">One lowercase letter</li>
+                    <li id="rule-number">One number</li>
+                    <li id="rule-special">One special character</li>
+                  </ul>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="signup-confirm">Confirm password</label>
+                  <input type="password" id="signup-confirm" placeholder="Re-enter your password" required />
                 </div>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Create Account</button>
               </form>
@@ -59,6 +79,7 @@ function SignupContent() {
             });
           }
 
+          // Tier selector
           document.querySelectorAll('#tier-selector .tier-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
               document.querySelectorAll('#tier-selector .tier-btn').forEach(function(b) { b.classList.remove('selected'); });
@@ -67,20 +88,72 @@ function SignupContent() {
             });
           });
 
+          // Password strength
+          function checkStrength(pw) {
+            var score = 0;
+            var checks = {
+              length: pw.length >= 8,
+              upper: /[A-Z]/.test(pw),
+              lower: /[a-z]/.test(pw),
+              number: /[0-9]/.test(pw),
+              special: /[^A-Za-z0-9]/.test(pw)
+            };
+            Object.values(checks).forEach(function(v) { if (v) score++; });
+            return { score: score, checks: checks };
+          }
+
+          var strengthLabels = ['', 'Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+          var strengthColors = ['', '#c0392b', '#c0392b', '#e67e22', '#f1c40f', '#27ae60'];
+
+          document.getElementById('signup-password').addEventListener('input', function(e) {
+            var pw = e.target.value;
+            var result = checkStrength(pw);
+            var bars = document.querySelectorAll('.strength-bar');
+            var label = document.getElementById('strength-label');
+
+            bars.forEach(function(bar, i) {
+              if (i < result.score - 1) {
+                bar.style.background = strengthColors[result.score];
+              } else {
+                bar.style.background = 'var(--border)';
+              }
+            });
+
+            label.textContent = pw.length > 0 ? strengthLabels[result.score] : '';
+            label.style.color = strengthColors[result.score];
+
+            // Update rules
+            var ruleMap = { length: 'rule-length', upper: 'rule-upper', lower: 'rule-lower', number: 'rule-number', special: 'rule-special' };
+            Object.keys(ruleMap).forEach(function(key) {
+              var el = document.getElementById(ruleMap[key]);
+              el.className = result.checks[key] ? 'passed' : '';
+            });
+          });
+
+          // Submit
           document.getElementById('signup-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             var alertEl = document.getElementById('signup-alert');
             var email = document.getElementById('signup-email').value.trim();
             var password = document.getElementById('signup-password').value;
+            var confirm = document.getElementById('signup-confirm').value;
             var tier = document.getElementById('signup-tier').value || 'personal';
-            if (!email || !password) { showAlert(alertEl, 'Please fill in all fields.', 'error'); return; }
-            if (password.length < 6) { showAlert(alertEl, 'Password must be at least 6 characters.', 'error'); return; }
+
+            if (!email || !password || !confirm) { showAlert(alertEl, 'Please fill in all fields.', 'error'); return; }
+
+            var result = checkStrength(password);
+            if (result.score < 4) { showAlert(alertEl, 'Password is too weak. Please meet all requirements.', 'error'); return; }
+            if (password !== confirm) { showAlert(alertEl, 'Passwords do not match.', 'error'); return; }
+
             var sb = await getSupabase();
-            var result = await sb.auth.signUp({ email: email, password: password, options: { data: { tier: tier } } });
-            if (result.error) { showAlert(alertEl, result.error.message, 'error'); return; }
+            var authResult = await sb.auth.signUp({ email: email, password: password, options: { data: { tier: tier } } });
+            if (authResult.error) { showAlert(alertEl, authResult.error.message, 'error'); return; }
             await sb.from('subscribers').insert([{ email: email, tier: tier }]);
             showAlert(alertEl, 'Account created! Check your email to confirm.', 'success');
             e.target.reset();
+            document.querySelectorAll('.strength-bar').forEach(function(b) { b.style.background = 'var(--border)'; });
+            document.getElementById('strength-label').textContent = '';
+            document.querySelectorAll('#password-rules li').forEach(function(li) { li.className = ''; });
           });
         `}
       </Script>

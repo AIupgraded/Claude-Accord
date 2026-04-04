@@ -27,6 +27,9 @@ export default function LoginPage() {
                   <label htmlFor="login-password">Password</label>
                   <input type="password" id="login-password" placeholder="Your password" required />
                 </div>
+                <p style={{ textAlign: 'right', marginBottom: '20px' }}>
+                  <Link href="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Forgot password?</Link>
+                </p>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Log In</button>
               </form>
               <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
