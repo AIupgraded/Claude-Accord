@@ -37,34 +37,42 @@ export default function ContactPage() {
         </main>
         <SubpageFooter />
       </div>
-      <Script id="contact-handler" strategy="afterInteractive">
+      <Script id="contact-handler" strategy="lazyOnload">
         {`
-          function getSupabase() {
-            return new Promise(function(resolve) {
-              if (window.supabaseClient) return resolve(window.supabaseClient);
-              window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
-            });
-          }
+          (function() {
+            function getSupabase() {
+              return new Promise(function(resolve) {
+                if (window.supabaseClient) return resolve(window.supabaseClient);
+                window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
+              });
+            }
 
-          document.getElementById('contact-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            var alertEl = document.getElementById('contact-alert');
-            var name = document.getElementById('contact-name').value.trim();
-            var email = document.getElementById('contact-email').value.trim();
-            var message = document.getElementById('contact-message').value.trim();
-            if (!name || !email || !message) {
-              showAlert(alertEl, 'Please fill in all fields.', 'error');
-              return;
+            function showA(el, msg, type) {
+              if (!el) return;
+              el.textContent = msg;
+              el.className = 'alert alert-' + type + ' visible';
             }
-            var sb = await getSupabase();
-            var result = await sb.from('contacts').insert([{ name: name, email: email, message: message }]);
-            if (result.error) {
-              showAlert(alertEl, 'Something went wrong. Please try again.', 'error');
-              return;
+
+            function setup() {
+              var form = document.getElementById('contact-form');
+              if (!form) { setTimeout(setup, 100); return; }
+
+              form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                var alertEl = document.getElementById('contact-alert');
+                var name = document.getElementById('contact-name').value.trim();
+                var email = document.getElementById('contact-email').value.trim();
+                var message = document.getElementById('contact-message').value.trim();
+                if (!name || !email || !message) { showA(alertEl, 'Please fill in all fields.', 'error'); return; }
+                var sb = await getSupabase();
+                var result = await sb.from('contacts').insert([{ name: name, email: email, message: message }]);
+                if (result.error) { showA(alertEl, 'Something went wrong. Please try again.', 'error'); return; }
+                showA(alertEl, 'Message sent! We will get back to you soon.', 'success');
+                e.target.reset();
+              });
             }
-            showAlert(alertEl, 'Message sent! We will get back to you soon.', 'success');
-            e.target.reset();
-          });
+            setup();
+          })();
         `}
       </Script>
     </>

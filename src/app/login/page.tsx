@@ -40,26 +40,40 @@ export default function LoginPage() {
         </main>
         <SubpageFooter />
       </div>
-      <Script id="login-handler" strategy="afterInteractive">
+      <Script id="login-handler" strategy="lazyOnload">
         {`
-          function getSupabase() {
-            return new Promise(function(resolve) {
-              if (window.supabaseClient) return resolve(window.supabaseClient);
-              window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
-            });
-          }
+          (function() {
+            function getSupabase() {
+              return new Promise(function(resolve) {
+                if (window.supabaseClient) return resolve(window.supabaseClient);
+                window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
+              });
+            }
 
-          document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            var alertEl = document.getElementById('login-alert');
-            var email = document.getElementById('login-email').value.trim();
-            var password = document.getElementById('login-password').value;
-            if (!email || !password) { showAlert(alertEl, 'Please fill in all fields.', 'error'); return; }
-            var sb = await getSupabase();
-            var result = await sb.auth.signInWithPassword({ email: email, password: password });
-            if (result.error) { showAlert(alertEl, result.error.message, 'error'); return; }
-            window.location.href = '/';
-          });
+            function showA(el, msg, type) {
+              if (!el) return;
+              el.textContent = msg;
+              el.className = 'alert alert-' + type + ' visible';
+            }
+
+            function setup() {
+              var form = document.getElementById('login-form');
+              if (!form) { setTimeout(setup, 100); return; }
+
+              form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                var alertEl = document.getElementById('login-alert');
+                var email = document.getElementById('login-email').value.trim();
+                var password = document.getElementById('login-password').value;
+                if (!email || !password) { showA(alertEl, 'Please fill in all fields.', 'error'); return; }
+                var sb = await getSupabase();
+                var result = await sb.auth.signInWithPassword({ email: email, password: password });
+                if (result.error) { showA(alertEl, result.error.message, 'error'); return; }
+                window.location.href = '/';
+              });
+            }
+            setup();
+          })();
         `}
       </Script>
     </>

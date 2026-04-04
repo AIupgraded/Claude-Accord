@@ -44,41 +44,53 @@ export default function ForgotPasswordPage() {
         </main>
         <SubpageFooter />
       </div>
-      <Script id="reset-handler" strategy="afterInteractive">
+      <Script id="reset-handler" strategy="lazyOnload">
         {`
-          function getSupabase() {
-            return new Promise(function(resolve) {
-              if (window.supabaseClient) return resolve(window.supabaseClient);
-              window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
-            });
-          }
+          (function() {
+            function getSupabase() {
+              return new Promise(function(resolve) {
+                if (window.supabaseClient) return resolve(window.supabaseClient);
+                window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
+              });
+            }
 
-          function showAlertLocal(el, message, type) {
-            if (!el) return;
-            el.textContent = message;
-            el.className = 'alert alert-' + type + ' visible';
-          }
+            function showA(el, msg, type) {
+              if (!el) return;
+              el.textContent = msg;
+              el.className = 'alert alert-' + type + ' visible';
+            }
 
-          document.getElementById('reset-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            var alertEl = document.getElementById('reset-alert');
-            var email = document.getElementById('reset-email').value.trim();
-            if (!email) { showAlertLocal(alertEl, 'Please enter your email.', 'error'); return; }
-            var sb = await getSupabase();
-            var result = await sb.auth.resetPasswordForEmail(email, {
-              redirectTo: window.location.origin + '/reset-password'
-            });
-            if (result.error) { showAlertLocal(alertEl, result.error.message, 'error'); return; }
-            document.getElementById('forgot-container').style.display = 'none';
-            document.getElementById('forgot-success').style.display = 'block';
-          });
+            function setup() {
+              var form = document.getElementById('reset-form');
+              if (!form) { setTimeout(setup, 100); return; }
 
-          document.getElementById('try-again-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('forgot-container').style.display = 'block';
-            document.getElementById('forgot-success').style.display = 'none';
-            document.getElementById('reset-alert').className = 'alert';
-          });
+              form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                var alertEl = document.getElementById('reset-alert');
+                var email = document.getElementById('reset-email').value.trim();
+                if (!email) { showA(alertEl, 'Please enter your email.', 'error'); return; }
+                var sb = await getSupabase();
+                var result = await sb.auth.resetPasswordForEmail(email, {
+                  redirectTo: window.location.origin + '/reset-password'
+                });
+                if (result.error) { showA(alertEl, result.error.message, 'error'); return; }
+                document.getElementById('forgot-container').style.display = 'none';
+                document.getElementById('forgot-success').style.display = 'block';
+              });
+
+              var tryAgain = document.getElementById('try-again-link');
+              if (tryAgain) {
+                tryAgain.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  document.getElementById('forgot-container').style.display = 'block';
+                  document.getElementById('forgot-success').style.display = 'none';
+                  var al = document.getElementById('reset-alert');
+                  if (al) al.className = 'alert';
+                });
+              }
+            }
+            setup();
+          })();
         `}
       </Script>
     </>
