@@ -79,7 +79,7 @@ export default function SettingsPage() {
       <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>
         <div className="page-inner">
           <p className="section-label">Settings</p>
-          <h2>You&apos;re safe, <em>{resolvedName}</em></h2>
+          <h2>Your safe, <em>{resolvedName}</em></h2>
 
           <div className="settings-sections">
             {message && (
