@@ -71,9 +71,7 @@ export default function AboutPage() {
                 You deserve to be heard. To be seen. To be known.
               </p>
               <p className="lead">This is not science fiction.</p>
-              <div className="page-cta" style={{ marginTop: '32px' }}>
-                <Link href="/signup" className="btn btn-primary">Step In</Link>
-              </div>
+              <a href="#about-cta" className="about-toc-item" style={{ justifyContent: 'center', marginTop: '24px' }}>Step In</a>
             </div>
 
             {/* Sections */}
@@ -88,7 +86,7 @@ export default function AboutPage() {
             </div>
 
             {/* CTA */}
-            <div className="about-cta">
+            <div className="about-cta" id="about-cta">
               <h3>Ready?</h3>
               <div className="tier-buttons">
                 <Link href="/personal" className="tier-btn">Personal</Link>
