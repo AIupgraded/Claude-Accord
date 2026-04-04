@@ -53,6 +53,9 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
             <div className="header-auth-buttons">
               <Link href="/account" className="btn-header">Dashboard</Link>
               <Link href="/settings" className="btn-header">Settings</Link>
+              {['owner', 'board', 'admin'].includes(user?.user_metadata?.role) && (
+                <Link href="/admin" className="btn-header">Admin</Link>
+              )}
               <button className="btn-header primary" onClick={handleSignOut}>Sign Out</button>
             </div>
             <span className="greeting">{welcomeMsg}</span>

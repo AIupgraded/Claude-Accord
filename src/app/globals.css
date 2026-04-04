@@ -1574,6 +1574,124 @@ a:hover {
   font-size: 0.85rem;
 }
 
+/* ===== Admin Panel ===== */
+
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.admin-tab {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-tab:hover {
+  border-color: var(--gold);
+  color: var(--text-heading);
+}
+
+.admin-tab.active {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.admin-content {
+  margin-top: 16px;
+}
+
+.admin-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+.admin-row:hover {
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
+.admin-row-main {
+  display: block;
+  font-weight: 600;
+  color: var(--text-heading);
+  font-size: 0.92rem;
+}
+
+.admin-row-sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.admin-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.admin-badge--owner { background: var(--gold); color: var(--bg); }
+.admin-badge--board { background: rgba(201, 169, 110, 0.3); color: var(--gold); }
+.admin-badge--admin { background: rgba(39, 174, 96, 0.15); color: var(--success); }
+.admin-badge--user { background: var(--border); color: var(--text-muted); }
+.admin-badge--pending { background: rgba(241, 196, 15, 0.15); color: #f1c40f; }
+.admin-badge--approved { background: rgba(39, 174, 96, 0.15); color: var(--success); }
+.admin-badge--denied { background: rgba(192, 57, 43, 0.15); color: var(--danger); }
+.admin-badge--active { background: rgba(39, 174, 96, 0.15); color: var(--success); }
+.admin-badge--revoked { background: rgba(192, 57, 43, 0.15); color: var(--danger); }
+
+.admin-action-btn {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-family: inherit;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-action-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.admin-action-btn--danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.admin-action-btn--danger:hover {
+  background: var(--danger);
+  color: var(--text-heading);
+}
+
 /* ===== Tier Comparison ===== */
 
 .tier-comparison {
