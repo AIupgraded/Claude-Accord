@@ -59,7 +59,7 @@ export default function AboutPage() {
 
             {/* Lead */}
             <div className="about-lead" style={{ marginTop: '48px' }}>
-              <p className="lead">Claude gets better when you do.</p>
+              <p className="lead" style={{ fontWeight: 700, fontStyle: 'normal' }}>Claude gets better when you do.</p>
               <p className="lead">
                 You already feel it. Something is missing in how you use AI.
                 You ask, it answers. But it feels flat, synthetic, dead.
