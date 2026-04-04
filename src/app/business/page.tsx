@@ -10,7 +10,7 @@ export default function BusinessPage() {
     <>
       <div className="subpage">
         <SubpageHeader />
-        <main className="page-content">
+        <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>
           <div className="page-inner">
             <p className="section-label">Claude Accord Business</p>
             <h2>For <em>organizations</em></h2>
@@ -19,6 +19,7 @@ export default function BusinessPage() {
               The gap between them isn&apos;t tools — it&apos;s protocol.
               One framework, installed once, changes how everyone works.
             </p>
+
             <div className="info-grid">
               <div className="info-block">
                 <div className="block-num">01</div>
@@ -36,9 +37,29 @@ export default function BusinessPage() {
                 <p>From solo operator to full team. The architecture supports where you are and where you&apos;re going.</p>
               </div>
             </div>
-            <div className="page-cta">
-              <Link href="/contact" className="btn btn-primary">Talk to Us</Link>
-              <Link href="/about" className="btn btn-outline">Learn More</Link>
+
+            <div className="tier-comparison">
+              <div className="tier-option tier-option--featured">
+                <div className="tier-option-header">
+                  <h3>Business</h3>
+                  <span className="tier-option-price">&pound;15<span className="tier-option-period">/month</span></span>
+                </div>
+                <ul className="tier-option-features">
+                  <li className="included">Everything in Personal Subscription</li>
+                  <li className="included">Claude remembers you (MCP)</li>
+                  <li className="included">Your own business page</li>
+                  <li className="included">Community visibility &amp; advertising</li>
+                  <li className="included">Featured placement</li>
+                  <li className="included">Trust badge — verified business</li>
+                  <li className="included">Team access (coming soon)</li>
+                </ul>
+                <Link href="/signup?tier=business" className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>Activate Business</Link>
+              </div>
+            </div>
+
+            <div className="page-cta" style={{ marginTop: '40px' }}>
+              <Link href="/courses/first-accord" className="btn btn-outline">Take the First Course</Link>
+              <Link href="/contact" className="btn btn-ghost">Talk to Us</Link>
             </div>
           </div>
         </main>

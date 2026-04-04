@@ -10,7 +10,7 @@ export default function PersonalPage() {
     <>
       <div className="subpage">
         <SubpageHeader />
-        <main className="page-content">
+        <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>
           <div className="page-inner">
             <p className="section-label">Claude Accord Personal</p>
             <h2>For the <em>individual</em></h2>
@@ -19,6 +19,7 @@ export default function PersonalPage() {
               the conversation stays shallow, the tool stays a tool.
               This is for those who want more than that.
             </p>
+
             <div className="info-grid">
               <div className="info-block">
                 <div className="block-num">01</div>
@@ -36,23 +37,48 @@ export default function PersonalPage() {
                 <p>You don&apos;t need to know the right words. You need to show up. The framework handles the rest.</p>
               </div>
             </div>
-            <div className="products-section">
-              <p className="section-label">Available Now</p>
-              <div className="product-card">
-                <div className="product-card-inner">
-                  <div className="product-label">Personal &middot; Fundamentals</div>
-                  <h3 className="product-title">Academic Email Pack</h3>
-                  <p className="product-desc">3 structured prompts for academic communication. Email to professor, formal application, follow-up. Built for collaboration — not commands.</p>
-                  <div className="product-footer">
-                    <span className="product-price">&pound;0.10</span>
-                    <a href="https://payhip.com/b/tA9wp" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Get This Pack</a>
-                  </div>
+
+            {/* Free vs Subscription */}
+            <div className="tier-comparison">
+              <div className="tier-option">
+                <div className="tier-option-header">
+                  <h3>Free</h3>
+                  <span className="tier-option-price">&pound;0</span>
                 </div>
+                <ul className="tier-option-features">
+                  <li className="included">All courses</li>
+                  <li className="included">Level progression</li>
+                  <li className="included">Protocol access</li>
+                  <li className="included">Community profile</li>
+                  <li className="excluded">Claude remembers you (MCP)</li>
+                  <li className="excluded">Permanent memory</li>
+                  <li className="excluded">Verified skills</li>
+                  <li className="excluded">Priority support</li>
+                </ul>
+                <Link href="/signup?tier=personal" className="btn btn-outline" style={{ width: '100%', textAlign: 'center' }}>Start Free</Link>
+              </div>
+
+              <div className="tier-option tier-option--featured">
+                <div className="tier-option-header">
+                  <h3>Subscription</h3>
+                  <span className="tier-option-price">&pound;5<span className="tier-option-period">/month</span></span>
+                </div>
+                <ul className="tier-option-features">
+                  <li className="included">Everything in Free</li>
+                  <li className="included">Claude remembers you (MCP)</li>
+                  <li className="included">Permanent memory across sessions</li>
+                  <li className="included">API key for direct connection</li>
+                  <li className="included">Verified skills in community</li>
+                  <li className="included">Priority support</li>
+                  <li className="included">Context that grows with you</li>
+                  <li className="included">Claude knows your name</li>
+                </ul>
+                <Link href="/signup?tier=personal" className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>Subscribe</Link>
               </div>
             </div>
-            <div className="page-cta">
-              <Link href="/signup" className="btn btn-primary">Get Started</Link>
-              <Link href="/about" className="btn btn-outline">Learn More</Link>
+
+            <div className="page-cta" style={{ marginTop: '40px' }}>
+              <Link href="/courses/first-accord" className="btn btn-outline">Take the First Course</Link>
             </div>
           </div>
         </main>

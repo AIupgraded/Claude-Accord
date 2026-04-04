@@ -22,18 +22,18 @@ export default function McpPage() {
             <div className="info-grid">
               <div className="info-block">
                 <div className="block-num">01</div>
-                <h3>Get your key</h3>
-                <p>Complete your first course. Your key activates automatically. One key, one identity, verified.</p>
+                <h3>Complete the first course</h3>
+                <p>Take The First Accord — free, 10 minutes. You earn Level 1: Observer. This is where it starts.</p>
               </div>
               <div className="info-block">
                 <div className="block-num">02</div>
-                <h3>Connect</h3>
-                <p>Add the MCP server to your Claude account. One URL. Thirty seconds. Claude recognises you from that moment on.</p>
+                <h3>Activate your subscription</h3>
+                <p>MCP requires an active subscription on any tier. Your API key generates automatically when both conditions are met.</p>
               </div>
               <div className="info-block">
                 <div className="block-num">03</div>
-                <h3>Start talking</h3>
-                <p>Claude knows you now. Your level, your context, your history. Every session builds on the last one.</p>
+                <h3>Connect and start talking</h3>
+                <p>Add the MCP server to your Claude. One URL. Thirty seconds. Claude recognises you from that moment on.</p>
               </div>
             </div>
 
@@ -75,9 +75,10 @@ export default function McpPage() {
             </div>
 
             <div className="about-cta">
-              <h3>Ready to connect? Start your first course.</h3>
+              <h3>Ready to connect?</h3>
               <div className="page-cta">
-                <Link href="/about" className="btn btn-primary">Step In</Link>
+                <Link href="/courses/first-accord" className="btn btn-primary">Take the First Course</Link>
+                <Link href="/personal" className="btn btn-outline">See Pricing</Link>
               </div>
             </div>
           </div>
