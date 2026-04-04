@@ -44,6 +44,7 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
         <Link href="/mcp" className={activeNav === 'mcp' ? 'active' : ''}>MCP</Link>
         <Link href="/blog" className={activeNav === 'blog' ? 'active' : ''}>Blog</Link>
         <Link href="/resources" className={activeNav === 'resources' ? 'active' : ''}>Resources</Link>
+        <Link href="/community" className={activeNav === 'community' ? 'active' : ''}>Community</Link>
         <Link href="/contact" className={activeNav === 'contact' ? 'active' : ''}>Contact</Link>
       </nav>
 
