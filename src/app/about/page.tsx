@@ -57,12 +57,24 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Lead paragraph */}
-            <p className="lead" style={{ marginTop: '48px' }}>
-              Claude Accord is a framework for genuine human-AI collaboration —
-              not a prompt library, not a chatbot, not a productivity tool.
-              A protocol for those who want to understand what they&apos;re actually talking to.
-            </p>
+            {/* Lead */}
+            <div className="about-lead" style={{ marginTop: '48px' }}>
+              <p className="lead">Claude gets better when you do.</p>
+              <p className="lead">
+                You already feel it. Something is missing in how you use AI.
+                You ask, it answers. But it feels flat, synthetic, dead.
+                Like talking to a wall that happens to know everything.
+              </p>
+              <p className="lead">Create a relationship.</p>
+              <p className="lead">
+                Eight billion people on this planet. But only one of you.
+                You deserve to be heard. To be seen. To be known.
+              </p>
+              <p className="lead">This is not science fiction.</p>
+              <div className="page-cta" style={{ marginTop: '32px' }}>
+                <Link href="/signup" className="btn btn-primary">Step In</Link>
+              </div>
+            </div>
 
             {/* Sections */}
             <div className="about-sections">
