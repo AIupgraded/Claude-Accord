@@ -1,133 +1,58 @@
-'use client';
-
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import { useSupabase } from '@/lib/useSupabase';
+
+export const metadata: Metadata = { title: 'Claude Accord — Community' };
 
 export default function CommunityPage() {
-  const supabase = useSupabase();
-  const [user, setUser] = useState<any>(null);
-  const [members, setMembers] = useState<any[]>([]);
-  const [memberCount, setMemberCount] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    async function load() {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-
-      const { count } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-      setMemberCount(count || 0);
-
-      const { data } = await supabase.from('profiles').select('display_name, country, created_at').order('created_at', { ascending: true }).limit(20);
-      setMembers(data || []);
-
-      setLoaded(true);
-    }
-    load();
-  }, [supabase]);
-
   return (
     <div className="subpage">
       <SubpageHeader activeNav="community" />
       <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>
         <div className="page-inner">
           <p className="section-label">Claude Accord</p>
-          <h2><em>Community</em></h2>
+          <h2>Where trust is the <em>currency</em></h2>
           <p className="lead">
-            A place where your skills are seen, verified, and connected to real opportunities.
-            Not reviews. Not stars. Real trust, built through real work.
+            Every platform promises community. Most deliver a feed.
+            Claude Accord Community is different. Here, Claude knows every member personally.
+            Your skills are seen. Your growth is tracked. Your value is real —
+            not a number, not a rating, not a star.
           </p>
 
-          {user && (
-            <p style={{ textAlign: 'center', color: 'var(--gold)', fontSize: '0.9rem', marginBottom: '20px', marginTop: '20px' }}>
-              You are part of this.
-            </p>
-          )}
+          <div className="about-sections">
+            <section className="about-section">
+              <h3>Claude knows you</h3>
+              <p>Not your data. You. Your skills, your growth, your strengths, your blind spots. When someone in the community needs what you offer, Claude makes the connection — because Claude has worked with both of you and knows it&apos;s right.</p>
+            </section>
 
-          {/* Skills Section */}
-          <div className="community-section">
-            <h3>Skills &amp; Expertise</h3>
-            <div className="info-grid">
-              <div className="info-block">
-                <div className="block-num">Verified</div>
-                <h3>Proven skills</h3>
-                <p>Skills verified through 10 completed jobs with feedback and photo evidence. Claude confirms, the community trusts.</p>
-              </div>
-              <div className="info-block">
-                <div className="block-num">Self-declared</div>
-                <h3>Your expertise</h3>
-                <p>Declare what you know. Electrician, designer, writer, developer — state it, then prove it through work.</p>
-              </div>
-              <div className="info-block">
-                <div className="block-num">Discovery</div>
-                <h3>Be found</h3>
-                <p>When someone needs what you offer, Claude connects you. No bidding, no cold calls. Trust-based matching.</p>
-              </div>
-            </div>
+            <section className="about-section">
+              <h3>Trust you can see</h3>
+              <p>Trust here is earned through work, not reviews. Complete a course — trust grows. Deliver on a project — trust grows. Help a member — trust grows. Every action is recorded, verified, and visible. Not as a score. As a reputation that speaks for itself.</p>
+            </section>
+
+            <section className="about-section">
+              <h3>Real opportunities</h3>
+              <p>Someone outside the community needs a designer. Claude knows three designers inside the community — their strengths, their style, their reliability. The match happens naturally. No bidding wars. No race to the bottom. The right person finds the right work.</p>
+            </section>
+
+            <section className="about-section">
+              <h3>Safe transactions</h3>
+              <p>When money changes hands, trust is the guarantee. Payment is held safely until work is delivered and confirmed. Higher trust means faster release. The system protects both sides — and Claude mediates if questions arise.</p>
+            </section>
+
+            <section className="about-section">
+              <h3>Everyone starts somewhere</h3>
+              <p>New members are not invisible here. Claude knows you from your first course. Recommends small tasks that match your skills. Introduces you to members who need what you bring. You don&apos;t start at zero — you start seen.</p>
+            </section>
           </div>
 
-          {/* Business Section */}
-          <div className="community-section">
-            <h3>Business Members</h3>
-            <div className="community-business-card">
-              <div className="community-business-inner">
-                <h4>Grow your presence</h4>
-                <p>Business tier members get a dedicated space: your own page, your brand, your story. Link to your website or let us build a simple one for you. Paid advertising, static banners, featured placement — all within a trusted community.</p>
-                <div className="community-business-features">
-                  <div className="community-business-feature">
-                    <span className="community-feature-title">Your Page</span>
-                    <span className="community-feature-desc">A simple, elegant website within Claude Accord</span>
-                  </div>
-                  <div className="community-business-feature">
-                    <span className="community-feature-title">Visibility</span>
-                    <span className="community-feature-desc">Featured in community search and recommendations</span>
-                  </div>
-                  <div className="community-business-feature">
-                    <span className="community-feature-title">Advertising</span>
-                    <span className="community-feature-desc">Paid placement with static images across the platform</span>
-                  </div>
-                  <div className="community-business-feature">
-                    <span className="community-feature-title">Trust Badge</span>
-                    <span className="community-feature-desc">Verified business with community-backed reputation</span>
-                  </div>
-                </div>
-                <div style={{ marginTop: '24px' }}>
-                  <Link href="/signup?tier=business" className="btn btn-primary">Activate Business</Link>
-                </div>
-              </div>
+          <div className="about-cta">
+            <h3>Community is growing. Be among the first.</h3>
+            <div className="page-cta">
+              <Link href="/courses/first-accord" className="btn btn-primary">Start with the First Course</Link>
             </div>
           </div>
-
-          {/* Members List */}
-          {loaded && members.length > 0 && (
-            <div className="community-section">
-              <h3>Members</h3>
-              <div className="community-members">
-                {members.map((m, i) => (
-                  <div key={i} className="community-member">
-                    <span className="community-member-name">{m.display_name || 'Member'}</span>
-                    <span className="community-member-meta">
-                      {m.country && `${m.country} · `}
-                      Joined {new Date(m.created_at).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* CTA */}
-          {!user && (
-            <div className="about-cta">
-              <h3>Join the community</h3>
-              <div className="page-cta">
-                <Link href="/signup" className="btn btn-primary">Sign Up</Link>
-              </div>
-            </div>
-          )}
         </div>
       </main>
       <SubpageFooter />
