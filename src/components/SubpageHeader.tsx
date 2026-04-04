@@ -51,6 +51,7 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
         {loaded && user ? (
           <div className="auth-logged-in" style={{ display: 'flex' }}>
             <div className="header-auth-buttons">
+              <Link href="/account" className="btn-header">Dashboard</Link>
               <Link href="/settings" className="btn-header">Settings</Link>
               <button className="btn-header primary" onClick={handleSignOut}>Sign Out</button>
             </div>
