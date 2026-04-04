@@ -1574,6 +1574,108 @@ a:hover {
   font-size: 0.85rem;
 }
 
+/* ===== Course Pages ===== */
+
+.course-content {
+  text-align: left;
+  max-width: 720px;
+  margin: 32px auto 0;
+}
+
+.course-section {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.course-section:last-child {
+  border-bottom: none;
+}
+
+.course-section h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 24px;
+  letter-spacing: 0.03em;
+}
+
+.course-section p {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.course-section--interaction {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 40px 32px;
+  margin-top: 40px;
+  border-bottom: none;
+}
+
+.course-question {
+  font-style: italic;
+  color: var(--text-heading);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.course-response {
+  text-align: center;
+}
+
+.course-response-text {
+  text-align: left;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  margin-bottom: 32px;
+}
+
+.course-response-text p {
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.course-response-text p:last-child {
+  margin-bottom: 0;
+}
+
+.course-level-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 40px;
+  border: 1px solid var(--gold);
+  background: var(--gold-dim);
+}
+
+.course-level-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.course-level-name {
+  font-size: 0.8rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .course-section--interaction {
+    padding: 28px 20px;
+  }
+}
+
 /* ===== Community Page ===== */
 
 .community-count {
