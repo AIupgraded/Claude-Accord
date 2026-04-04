@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
 
     setLoading(true);
     const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + '/reset-password'
+      redirectTo: window.location.origin + '/auth/callback?next=/reset-password'
     });
     setLoading(false);
 
@@ -59,12 +59,17 @@ export default function ForgotPasswordPage() {
               <div>
                 <h2 style={{ color: 'var(--text-heading)', marginBottom: '16px' }}>Check your email</h2>
                 <p className="lead">
-                  We&apos;ve sent a password reset link to your email address.
-                  Click the link in the email to set a new password.
+                  If an account exists with that email, we&apos;ve sent a password reset link.
+                  Check your inbox and spam folder.
+                </p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '16px', lineHeight: '1.6' }}>
+                  The link expires in 1 hour. If you don&apos;t receive it within a few minutes,
+                  wait 60 seconds before trying again.
                 </p>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '24px' }}>
-                  Didn&apos;t receive it? Check your spam folder or{' '}
-                  <a href="#" onClick={(e) => { e.preventDefault(); setSent(false); setError(''); }} style={{ color: 'var(--gold)' }}>try again</a>.
+                  <a href="#" onClick={(e) => { e.preventDefault(); setSent(false); setError(''); }} style={{ color: 'var(--gold)' }}>Try again</a>
+                  {' '} | {' '}
+                  <Link href="/login" style={{ color: 'var(--gold)' }}>Back to login</Link>
                 </p>
               </div>
             )}

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 import SupabaseProvider from '@/components/SupabaseProvider';
@@ -29,17 +29,43 @@ export default function ResetPasswordPage() {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const confirmRef = useRef<HTMLInputElement>(null);
+  const resolved = useRef(false);
 
   const strength = checkStrength(password);
 
-  useEffect(() => {
-    async function checkSession() {
-      await new Promise(r => setTimeout(r, 500));
-      const { data } = await supabase.auth.getSession();
-      setState(data.session ? 'form' : 'error');
+  const resolve = useCallback((newState: 'form' | 'error') => {
+    if (!resolved.current) {
+      resolved.current = true;
+      setState(newState);
     }
-    checkSession();
-  }, [supabase]);
+  }, []);
+
+  useEffect(() => {
+    // Listen for PASSWORD_RECOVERY event (hash-based flow)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        resolve('form');
+      }
+    });
+
+    // Check for existing session (callback-based PKCE flow)
+    async function check() {
+      // Wait for any redirect/hash processing
+      await new Promise(r => setTimeout(r, 1000));
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        resolve('form');
+      } else {
+        // Wait a bit more and try again
+        await new Promise(r => setTimeout(r, 2000));
+        const { data: retry } = await supabase.auth.getSession();
+        resolve(retry.session ? 'form' : 'error');
+      }
+    }
+    check();
+
+    return () => subscription.unsubscribe();
+  }, [supabase, resolve]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,6 +80,7 @@ export default function ResetPasswordPage() {
     setSubmitting(false);
 
     if (err) { setError(err.message); return; }
+    await supabase.auth.signOut();
     setState('success');
   }
 
@@ -64,7 +91,7 @@ export default function ResetPasswordPage() {
         <SubpageHeader />
         <main className="page-content">
           <div className="page-inner">
-            {state === 'loading' && <p className="lead">Loading...</p>}
+            {state === 'loading' && <p className="lead">Verifying your reset link...</p>}
 
             {state === 'form' && (
               <div className="form-container" style={{ margin: '0 auto' }}>
@@ -110,7 +137,7 @@ export default function ResetPasswordPage() {
             {state === 'error' && (
               <div>
                 <h2 style={{ color: 'var(--text-heading)', marginBottom: '16px' }}>Invalid or expired link</h2>
-                <p className="lead">This reset link is no longer valid. Please request a new one.</p>
+                <p className="lead">This reset link is no longer valid or has already been used.</p>
                 <div className="page-cta" style={{ marginTop: '24px' }}>
                   <Link href="/forgot-password" className="btn btn-primary">Request New Link</Link>
                 </div>
