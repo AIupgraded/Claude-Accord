@@ -48,7 +48,7 @@ export default function AccountPage() {
       <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>
         <div className="page-inner">
           <p className="section-label">Your Account</p>
-          <h2>Hello, <em>{displayName}</em></h2>
+          <h2>This is your home, <em>{displayName}</em></h2>
 
           <div className="dashboard-grid">
             {/* Card 1: Your World */}
