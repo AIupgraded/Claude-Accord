@@ -2,14 +2,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 
 export const metadata: Metadata = { title: 'Claude Accord — Blog' };
 
 export default function BlogPage() {
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader activeNav="blog" />
         <main className="page-content">

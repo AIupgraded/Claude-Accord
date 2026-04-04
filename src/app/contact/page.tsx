@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 export default function ContactPage() {
@@ -34,7 +33,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader activeNav="contact" />
         <main className="page-content">

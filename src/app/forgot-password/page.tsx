@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState, useRef } from 'react';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 export default function ForgotPasswordPage() {
@@ -32,7 +31,6 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader />
         <main className="page-content">

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 
 export const metadata: Metadata = { title: 'Claude Accord — About' };
 
@@ -27,7 +26,6 @@ const allSections = [...leftItems, ...rightItems];
 export default function AboutPage() {
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader activeNav="about" />
         <main className="page-content" style={{ justifyContent: 'flex-start', paddingTop: '60px' }}>

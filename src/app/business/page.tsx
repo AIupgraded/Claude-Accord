@@ -2,14 +2,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 
 export const metadata: Metadata = { title: 'Claude Accord — Business' };
 
 export default function BusinessPage() {
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader />
         <main className="page-content">

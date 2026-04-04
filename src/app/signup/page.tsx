@@ -5,7 +5,6 @@ import { useState, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 function checkStrength(pw: string) {
@@ -64,7 +63,6 @@ function SignupContent() {
 
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader />
         <main className="page-content">

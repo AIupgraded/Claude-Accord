@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
-import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 function checkStrength(pw: string) {
@@ -93,7 +92,6 @@ export default function ResetPasswordPage() {
 
   return (
     <>
-      <SupabaseProvider />
       <div className="subpage">
         <SubpageHeader />
         <main className="page-content">
