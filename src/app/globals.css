@@ -934,9 +934,12 @@ a:hover {
 
 .subpage .nav-menu {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: clamp(14px, 2.5vw, 28px);
+  gap: 6px clamp(14px, 2.5vw, 28px);
   list-style: none;
+  max-width: 420px;
 }
 
 .subpage .nav-menu a {
