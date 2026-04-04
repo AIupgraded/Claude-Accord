@@ -21,7 +21,7 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
     });
   }, [supabase]);
 
-  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'friend';
+  const displayName = user?.user_metadata?.display_name || user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'friend';
   const welcomeMsg = user?.user_metadata?.welcome_message || `Glad to have you back, ${displayName}`;
 
   async function handleSignOut() {

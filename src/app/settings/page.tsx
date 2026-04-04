@@ -16,7 +16,9 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const nameRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const displayNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const welcomeRef = useRef<HTMLInputElement>(null);
 
@@ -36,7 +38,9 @@ export default function SettingsPage() {
     setSaving(true);
     const { error } = await supabase.auth.updateUser({
       data: {
-        full_name: nameRef.current?.value.trim(),
+        first_name: firstNameRef.current?.value.trim(),
+        last_name: lastNameRef.current?.value.trim(),
+        display_name: displayNameRef.current?.value.trim(),
         phone: phoneRef.current?.value.trim(),
         welcome_message: welcomeRef.current?.value.trim(),
       }
@@ -46,13 +50,6 @@ export default function SettingsPage() {
     const { data: { user: updated } } = await supabase.auth.getUser();
     setUser(updated);
     setMessage({ text: 'Profile updated.', type: 'success' });
-  }
-
-  async function handleDeleteAccount() {
-    // Note: deleting a user requires admin/service role.
-    // For now, we sign out and show a message to contact support.
-    await supabase.auth.signOut();
-    router.push('/contact');
   }
 
   if (loading) {
@@ -65,12 +62,16 @@ export default function SettingsPage() {
     );
   }
 
-  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || '';
+  const meta = user?.user_metadata || {};
+  const firstName = meta.first_name || '';
+  const lastName = meta.last_name || '';
+  const displayName = meta.display_name || '';
   const email = user?.email || '';
-  const phone = user?.user_metadata?.phone || '';
-  const tier = user?.user_metadata?.tier || 'personal';
-  const welcomeMessage = user?.user_metadata?.welcome_message || '';
+  const phone = meta.phone || '';
+  const tier = meta.tier || 'personal';
+  const welcomeMessage = meta.welcome_message || '';
   const createdAt = user?.created_at ? new Date(user.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  const resolvedName = displayName || firstName || email.split('@')[0];
 
   return (
     <div className="subpage">
@@ -90,8 +91,17 @@ export default function SettingsPage() {
               <h3>Profile</h3>
               <form onSubmit={handleSaveProfile}>
                 <div className="form-group">
-                  <label htmlFor="s-name">Display name</label>
-                  <input type="text" id="s-name" ref={nameRef} defaultValue={displayName} placeholder="Your name" />
+                  <label htmlFor="s-firstname">First name</label>
+                  <input type="text" id="s-firstname" ref={firstNameRef} defaultValue={firstName} placeholder="First name" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="s-lastname">Last name</label>
+                  <input type="text" id="s-lastname" ref={lastNameRef} defaultValue={lastName} placeholder="Last name" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="s-displayname">Display name</label>
+                  <input type="text" id="s-displayname" ref={displayNameRef} defaultValue={displayName} placeholder={firstName || 'How others see you'} />
+                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>This is the name shown across the site.</p>
                 </div>
                 <div className="form-group">
                   <label htmlFor="s-email">Email</label>
@@ -107,7 +117,7 @@ export default function SettingsPage() {
                 </div>
                 <div className="form-group">
                   <label htmlFor="s-welcome">Welcome message</label>
-                  <input type="text" id="s-welcome" ref={welcomeRef} defaultValue={welcomeMessage} placeholder={`Glad to have you back, ${displayName || 'friend'}`} />
+                  <input type="text" id="s-welcome" ref={welcomeRef} defaultValue={welcomeMessage} placeholder={`Glad to have you back, ${resolvedName}`} />
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>Shown in the header when you&apos;re logged in.</p>
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={saving}>
