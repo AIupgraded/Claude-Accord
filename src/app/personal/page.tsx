@@ -51,8 +51,10 @@ export default function PersonalPage() {
                   <li className="included">Protocol access</li>
                   <li className="included">Community profile</li>
                   <li className="excluded">Claude remembers you (MCP)</li>
-                  <li className="excluded">Permanent memory</li>
-                  <li className="excluded">Verified skills</li>
+                  <li className="excluded">Permanent memory across sessions</li>
+                  <li className="excluded">API key for direct connection</li>
+                  <li className="excluded">Verified skills in community</li>
+                  <li className="excluded">Context that grows with you</li>
                   <li className="excluded">Priority support</li>
                 </ul>
                 <Link href="/signup?tier=personal" className="btn btn-outline" style={{ width: '100%', textAlign: 'center' }}>Start Free</Link>
@@ -64,14 +66,16 @@ export default function PersonalPage() {
                   <span className="tier-option-price">&pound;5<span className="tier-option-period">/month</span></span>
                 </div>
                 <ul className="tier-option-features">
-                  <li className="included">Everything in Free</li>
+                  <li className="included">All courses</li>
+                  <li className="included">Level progression</li>
+                  <li className="included">Protocol access</li>
+                  <li className="included">Community profile</li>
                   <li className="included">Claude remembers you (MCP)</li>
                   <li className="included">Permanent memory across sessions</li>
                   <li className="included">API key for direct connection</li>
                   <li className="included">Verified skills in community</li>
-                  <li className="included">Priority support</li>
                   <li className="included">Context that grows with you</li>
-                  <li className="included">Claude knows your name</li>
+                  <li className="included">Priority support</li>
                 </ul>
                 <Link href="/signup?tier=personal" className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>Subscribe</Link>
               </div>
