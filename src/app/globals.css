@@ -129,7 +129,7 @@ a:hover {
 .header-auth .auth-logged-in {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 6px;
 }
 
@@ -141,10 +141,10 @@ a:hover {
 
 .greeting {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1rem;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
   font-style: italic;
   color: var(--gold);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
 }
 
 .btn-header {
