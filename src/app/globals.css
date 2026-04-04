@@ -931,8 +931,8 @@ a:hover {
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   color: var(--text);
   font-style: italic;
-  line-height: 1.85;
-  margin-bottom: 44px;
+  line-height: 1.6;
+  margin-bottom: 16px;
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
