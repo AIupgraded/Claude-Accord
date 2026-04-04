@@ -19,7 +19,7 @@ function SignupContent() {
         <SubpageHeader />
         <main className="page-content">
           <div className="page-inner">
-            <div className="form-container" style={{ maxWidth: '560px', margin: '0 auto' }}>
+            <div className="form-container" style={{ maxWidth: '720px', margin: '0 auto' }}>
               <h2>Create your account</h2>
               <p className="subtitle">Choose your tier and start exploring AI prompts.</p>
               <div className="alert" id="signup-alert"></div>
