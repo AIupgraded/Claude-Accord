@@ -1136,6 +1136,15 @@ a:hover {
   box-shadow: 0 0 8px rgba(201, 169, 110, 0.5);
 }
 
+.about-headline {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
 /* ===== About Page — Sections ===== */
 
 .about-sections {
