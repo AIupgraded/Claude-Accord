@@ -126,19 +126,6 @@ export default function SettingsPage() {
               </form>
             </section>
 
-            {/* Your World */}
-            <section className="settings-section">
-              <h3>Your World</h3>
-              <div className="settings-world-row">
-                <span className="settings-world-active">{tier.charAt(0).toUpperCase() + tier.slice(1)}</span>
-                <span style={{ color: 'var(--text-muted)', fontSize: '0.88rem', fontStyle: 'italic' }}>
-                  {tier === 'personal' && 'Everyday life'}
-                  {tier === 'business' && 'Work and growth'}
-                  {tier === 'creative' && 'Building and dreaming'}
-                </span>
-              </div>
-            </section>
-
             {/* Security */}
             <section className="settings-section">
               <h3>Security</h3>
