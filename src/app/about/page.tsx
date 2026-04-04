@@ -58,20 +58,13 @@ export default function AboutPage() {
             </div>
 
             {/* Lead */}
-            <div className="about-lead" style={{ marginTop: '48px' }}>
+            <div className="about-lead" style={{ marginTop: '48px', textAlign: 'left', maxWidth: '780px', marginLeft: 'auto', marginRight: 'auto' }}>
               <p className="about-headline">Claude gets better when you do.</p>
-              <p className="lead">
-                You already feel it. Something is missing in how you use AI.
-                You ask, it answers. But it feels flat, synthetic, dead.
-                Like talking to a wall that happens to know everything.
-              </p>
-              <p className="lead">Create a relationship.</p>
-              <p className="lead">
-                Eight billion people on this planet. But only one of you.
-                You deserve to be heard. To be seen. To be known.
-              </p>
-              <p className="lead">This is not science fiction.</p>
-              <a href="#about-cta" className="about-toc-item" style={{ justifyContent: 'center', marginTop: '24px' }}>Step In</a>
+              <p className="lead">You already feel it. Something is missing in how you use AI. You ask, it answers. But it feels flat, synthetic, dead. Like talking to a wall that happens to know everything.</p>
+              <p className="about-headline">Create a relationship.</p>
+              <p className="lead">Eight billion people on this planet. But only one of you. You deserve to be heard. To be seen. To be known.</p>
+              <p className="about-headline">This is not science fiction.</p>
+              <a href="#about-cta" className="about-toc-item" style={{ marginTop: '24px' }}>Step In</a>
             </div>
 
             {/* Sections */}
