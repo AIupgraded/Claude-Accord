@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
+import SupabaseProvider from '@/components/SupabaseProvider';
+import { useSupabase } from '@/lib/useSupabase';
 
 function checkStrength(pw: string) {
   const checks = {
@@ -26,6 +28,7 @@ function SignupContent() {
   const tierParam = searchParams.get('tier') || 'personal';
   const validTier = ['personal', 'business', 'creative'].includes(tierParam) ? tierParam : 'personal';
 
+  const { sb, ready } = useSupabase();
   const [tier, setTier] = useState(validTier);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -34,24 +37,8 @@ function SignupContent() {
   const emailRef = useRef<HTMLInputElement>(null);
   const confirmRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const sbRef = useRef<any>(null);
 
   const strength = checkStrength(password);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-    script.onload = () => {
-      const w = window as any;
-      if (w.supabase) {
-        sbRef.current = w.supabase.createClient(
-          'https://ztwtavjfcinrojckhyai.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0d3RhdmpmY2lucm9qY2toeWFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjY2MDIsImV4cCI6MjA4ODY0MjYwMn0.3O5N8SRond65onv1Y_LZgSkg6e7L9oR-TmY4XVUW3Ao'
-        );
-      }
-    };
-    document.head.appendChild(script);
-  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -63,11 +50,11 @@ function SignupContent() {
     if (!email || !password || !confirm) { setError('Please fill in all fields.'); return; }
     if (strength.score < 4) { setError('Password is too weak. Please meet all requirements.'); return; }
     if (password !== confirm) { setError('Passwords do not match.'); return; }
-    if (!sbRef.current) { setError('Loading... please try again in a moment.'); return; }
+    if (!sb.current) { setError('Loading... please try again.'); return; }
 
     setLoading(true);
-    const { error: err } = await sbRef.current.auth.signUp({ email, password, options: { data: { tier } } });
-    if (!err) await sbRef.current.from('subscribers').insert([{ email, tier }]);
+    const { error: err } = await sb.current.auth.signUp({ email, password, options: { data: { tier } } });
+    if (!err) await sb.current.from('subscribers').insert([{ email, tier }]);
     setLoading(false);
 
     if (err) { setError(err.message); return; }
@@ -77,66 +64,69 @@ function SignupContent() {
   }
 
   return (
-    <div className="subpage">
-      <SubpageHeader />
-      <main className="page-content">
-        <div className="page-inner">
-          <div className="form-container" style={{ maxWidth: '720px', margin: '0 auto' }}>
-            <h2>Create your account</h2>
-            <p className="subtitle">Choose your world. Begin.</p>
-            {error && <div className="alert alert-error visible">{error}</div>}
-            {success && <div className="alert alert-success visible">{success}</div>}
+    <>
+      <SupabaseProvider />
+      <div className="subpage">
+        <SubpageHeader />
+        <main className="page-content">
+          <div className="page-inner">
+            <div className="form-container" style={{ maxWidth: '720px', margin: '0 auto' }}>
+              <h2>Create your account</h2>
+              <p className="subtitle">Choose your world. Begin.</p>
+              {error && <div className="alert alert-error visible">{error}</div>}
+              {success && <div className="alert alert-success visible">{success}</div>}
 
-            <div className="tier-buttons" style={{ marginBottom: '28px' }}>
-              {(['personal', 'business', 'creative'] as const).map(t => (
-                <button key={t} type="button" className={`tier-btn${tier === t ? ' selected' : ''}`} onClick={() => setTier(t)}>
-                  {t.charAt(0).toUpperCase() + t.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            <form onSubmit={handleSubmit} ref={formRef}>
-              <div className="form-group">
-                <label htmlFor="signup-email">Email</label>
-                <input type="email" id="signup-email" ref={emailRef} placeholder="you@email.com" required />
+              <div className="tier-buttons" style={{ marginBottom: '28px' }}>
+                {(['personal', 'business', 'creative'] as const).map(t => (
+                  <button key={t} type="button" className={`tier-btn${tier === t ? ' selected' : ''}`} onClick={() => setTier(t)}>
+                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </button>
+                ))}
               </div>
-              <div className="form-group">
-                <label htmlFor="signup-password">Password</label>
-                <input type="password" id="signup-password" placeholder="Min. 8 characters" required minLength={8} value={password} onChange={e => setPassword(e.target.value)} />
-                <div className="password-strength">
-                  <div className="strength-bars">
-                    {[0, 1, 2, 3].map(i => (
-                      <span key={i} className="strength-bar" style={{ background: i < strength.score - 1 ? strengthColors[strength.score] : 'var(--border)' }} />
-                    ))}
-                  </div>
-                  <span className="strength-label" style={{ color: strengthColors[strength.score] }}>
-                    {password.length > 0 ? strengthLabels[strength.score] : ''}
-                  </span>
+
+              <form onSubmit={handleSubmit} ref={formRef}>
+                <div className="form-group">
+                  <label htmlFor="signup-email">Email</label>
+                  <input type="email" id="signup-email" ref={emailRef} placeholder="you@email.com" required />
                 </div>
-                <ul className="password-rules">
-                  <li className={strength.checks.length ? 'passed' : ''}>At least 8 characters</li>
-                  <li className={strength.checks.upper ? 'passed' : ''}>One uppercase letter</li>
-                  <li className={strength.checks.lower ? 'passed' : ''}>One lowercase letter</li>
-                  <li className={strength.checks.number ? 'passed' : ''}>One number</li>
-                  <li className={strength.checks.special ? 'passed' : ''}>One special character</li>
-                </ul>
-              </div>
-              <div className="form-group">
-                <label htmlFor="signup-confirm">Confirm password</label>
-                <input type="password" id="signup-confirm" ref={confirmRef} placeholder="Re-enter your password" required />
-              </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
-                {loading ? 'Creating...' : 'Create Account'}
-              </button>
-            </form>
-            <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-              Already have an account? <Link href="/login">Log in</Link>
-            </p>
+                <div className="form-group">
+                  <label htmlFor="signup-password">Password</label>
+                  <input type="password" id="signup-password" placeholder="Min. 8 characters" required minLength={8} value={password} onChange={e => setPassword(e.target.value)} />
+                  <div className="password-strength">
+                    <div className="strength-bars">
+                      {[0, 1, 2, 3].map(i => (
+                        <span key={i} className="strength-bar" style={{ background: i < strength.score - 1 ? strengthColors[strength.score] : 'var(--border)' }} />
+                      ))}
+                    </div>
+                    <span className="strength-label" style={{ color: strengthColors[strength.score] }}>
+                      {password.length > 0 ? strengthLabels[strength.score] : ''}
+                    </span>
+                  </div>
+                  <ul className="password-rules">
+                    <li className={strength.checks.length ? 'passed' : ''}>At least 8 characters</li>
+                    <li className={strength.checks.upper ? 'passed' : ''}>One uppercase letter</li>
+                    <li className={strength.checks.lower ? 'passed' : ''}>One lowercase letter</li>
+                    <li className={strength.checks.number ? 'passed' : ''}>One number</li>
+                    <li className={strength.checks.special ? 'passed' : ''}>One special character</li>
+                  </ul>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="signup-confirm">Confirm password</label>
+                  <input type="password" id="signup-confirm" ref={confirmRef} placeholder="Re-enter your password" required />
+                </div>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !ready}>
+                  {loading ? 'Creating...' : 'Create Account'}
+                </button>
+              </form>
+              <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                Already have an account? <Link href="/login">Log in</Link>
+              </p>
+            </div>
           </div>
-        </div>
-      </main>
-      <SubpageFooter />
-    </div>
+        </main>
+        <SubpageFooter />
+      </div>
+    </>
   );
 }
 
