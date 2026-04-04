@@ -52,6 +52,13 @@ function SignupContent() {
       </div>
       <Script id="signup-handler" strategy="afterInteractive">
         {`
+          function getSupabase() {
+            return new Promise(function(resolve) {
+              if (window.supabaseClient) return resolve(window.supabaseClient);
+              window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
+            });
+          }
+
           document.querySelectorAll('#tier-selector .tier-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
               document.querySelectorAll('#tier-selector .tier-btn').forEach(function(b) { b.classList.remove('selected'); });
@@ -68,10 +75,10 @@ function SignupContent() {
             var tier = document.getElementById('signup-tier').value || 'personal';
             if (!email || !password) { showAlert(alertEl, 'Please fill in all fields.', 'error'); return; }
             if (password.length < 6) { showAlert(alertEl, 'Password must be at least 6 characters.', 'error'); return; }
-            if (!window.supabaseClient) { showAlert(alertEl, 'Service unavailable.', 'error'); return; }
-            var result = await window.supabaseClient.auth.signUp({ email: email, password: password, options: { data: { tier: tier } } });
+            var sb = await getSupabase();
+            var result = await sb.auth.signUp({ email: email, password: password, options: { data: { tier: tier } } });
             if (result.error) { showAlert(alertEl, result.error.message, 'error'); return; }
-            await window.supabaseClient.from('subscribers').insert([{ email: email, tier: tier }]);
+            await sb.from('subscribers').insert([{ email: email, tier: tier }]);
             showAlert(alertEl, 'Account created! Check your email to confirm.', 'success');
             e.target.reset();
           });

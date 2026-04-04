@@ -39,6 +39,13 @@ export default function ContactPage() {
       </div>
       <Script id="contact-handler" strategy="afterInteractive">
         {`
+          function getSupabase() {
+            return new Promise(function(resolve) {
+              if (window.supabaseClient) return resolve(window.supabaseClient);
+              window.addEventListener('supabase-ready', function() { resolve(window.supabaseClient); });
+            });
+          }
+
           document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             var alertEl = document.getElementById('contact-alert');
@@ -49,8 +56,8 @@ export default function ContactPage() {
               showAlert(alertEl, 'Please fill in all fields.', 'error');
               return;
             }
-            if (!window.supabaseClient) { showAlert(alertEl, 'Service unavailable.', 'error'); return; }
-            var result = await window.supabaseClient.from('contacts').insert([{ name: name, email: email, message: message }]);
+            var sb = await getSupabase();
+            var result = await sb.from('contacts').insert([{ name: name, email: email, message: message }]);
             if (result.error) {
               showAlert(alertEl, 'Something went wrong. Please try again.', 'error');
               return;
