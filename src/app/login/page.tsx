@@ -8,7 +8,7 @@ import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 export default function LoginPage() {
-  const { sb, ready } = useSupabase();
+  const supabase = useSupabase();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -20,10 +20,9 @@ export default function LoginPage() {
     const email = emailRef.current?.value.trim();
     const password = passwordRef.current?.value;
     if (!email || !password) { setError('Please fill in all fields.'); return; }
-    if (!sb.current) { setError('Loading... please try again.'); return; }
 
     setLoading(true);
-    const { error: err } = await sb.current.auth.signInWithPassword({ email, password });
+    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
 
     if (err) { setError(err.message); return; }
@@ -53,7 +52,7 @@ export default function LoginPage() {
                 <p style={{ textAlign: 'right', marginBottom: '20px' }}>
                   <Link href="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Forgot password?</Link>
                 </p>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !ready}>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
                   {loading ? 'Logging in...' : 'Log In'}
                 </button>
               </form>

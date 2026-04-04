@@ -23,7 +23,7 @@ const strengthLabels = ['', 'Weak', 'Weak', 'Fair', 'Good', 'Strong'];
 const strengthColors = ['', '#c0392b', '#c0392b', '#e67e22', '#f1c40f', '#27ae60'];
 
 export default function ResetPasswordPage() {
-  const { sb, ready } = useSupabase();
+  const supabase = useSupabase();
   const [state, setState] = useState<'loading' | 'form' | 'success' | 'error'>('loading');
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
@@ -33,14 +33,13 @@ export default function ResetPasswordPage() {
   const strength = checkStrength(password);
 
   useEffect(() => {
-    if (!ready) return;
     async function checkSession() {
       await new Promise(r => setTimeout(r, 500));
-      const { data } = await sb.current.auth.getSession();
+      const { data } = await supabase.auth.getSession();
       setState(data.session ? 'form' : 'error');
     }
     checkSession();
-  }, [ready, sb]);
+  }, [supabase]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -51,7 +50,7 @@ export default function ResetPasswordPage() {
     if (password !== confirm) { setError('Passwords do not match.'); return; }
 
     setSubmitting(true);
-    const { error: err } = await sb.current.auth.updateUser({ password });
+    const { error: err } = await supabase.auth.updateUser({ password });
     setSubmitting(false);
 
     if (err) { setError(err.message); return; }

@@ -8,7 +8,7 @@ import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 export default function ForgotPasswordPage() {
-  const { sb, ready } = useSupabase();
+  const supabase = useSupabase();
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,10 +19,9 @@ export default function ForgotPasswordPage() {
     setError('');
     const email = emailRef.current?.value.trim();
     if (!email) { setError('Please enter your email.'); return; }
-    if (!sb.current) { setError('Loading... please try again.'); return; }
 
     setLoading(true);
-    const { error: err } = await sb.current.auth.resetPasswordForEmail(email, {
+    const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin + '/reset-password'
     });
     setLoading(false);
@@ -48,7 +47,7 @@ export default function ForgotPasswordPage() {
                     <label htmlFor="reset-email">Email</label>
                     <input type="email" id="reset-email" ref={emailRef} placeholder="you@email.com" required />
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !ready}>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
                     {loading ? 'Sending...' : 'Send Reset Link'}
                   </button>
                 </form>

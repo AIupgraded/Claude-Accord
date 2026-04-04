@@ -7,7 +7,7 @@ import SupabaseProvider from '@/components/SupabaseProvider';
 import { useSupabase } from '@/lib/useSupabase';
 
 export default function ContactPage() {
-  const { sb, ready } = useSupabase();
+  const supabase = useSupabase();
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [loading, setLoading] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -22,10 +22,9 @@ export default function ContactPage() {
     const email = emailRef.current?.value.trim();
     const msg = msgRef.current?.value.trim();
     if (!name || !email || !msg) { setMessage({ text: 'Please fill in all fields.', type: 'error' }); return; }
-    if (!sb.current) { setMessage({ text: 'Loading... please try again.', type: 'error' }); return; }
 
     setLoading(true);
-    const { error } = await sb.current.from('contacts').insert([{ name, email, message: msg }]);
+    const { error } = await supabase.from('contacts').insert([{ name, email, message: msg }] as any);
     setLoading(false);
 
     if (error) { setMessage({ text: 'Something went wrong. Please try again.', type: 'error' }); return; }
@@ -57,7 +56,7 @@ export default function ContactPage() {
                   <label htmlFor="contact-message">Message</label>
                   <textarea id="contact-message" ref={msgRef} placeholder="How can we help?" required></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !ready}>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </form>

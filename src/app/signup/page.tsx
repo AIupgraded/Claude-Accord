@@ -28,7 +28,7 @@ function SignupContent() {
   const tierParam = searchParams.get('tier') || 'personal';
   const validTier = ['personal', 'business', 'creative'].includes(tierParam) ? tierParam : 'personal';
 
-  const { sb, ready } = useSupabase();
+  const supabase = useSupabase();
   const [tier, setTier] = useState(validTier);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -50,11 +50,10 @@ function SignupContent() {
     if (!email || !password || !confirm) { setError('Please fill in all fields.'); return; }
     if (strength.score < 4) { setError('Password is too weak. Please meet all requirements.'); return; }
     if (password !== confirm) { setError('Passwords do not match.'); return; }
-    if (!sb.current) { setError('Loading... please try again.'); return; }
 
     setLoading(true);
-    const { error: err } = await sb.current.auth.signUp({ email, password, options: { data: { tier } } });
-    if (!err) await sb.current.from('subscribers').insert([{ email, tier }]);
+    const { error: err } = await supabase.auth.signUp({ email, password, options: { data: { tier } } });
+    if (!err) await supabase.from('subscribers').insert([{ email, tier }] as any);
     setLoading(false);
 
     if (err) { setError(err.message); return; }
@@ -114,7 +113,7 @@ function SignupContent() {
                   <label htmlFor="signup-confirm">Confirm password</label>
                   <input type="password" id="signup-confirm" ref={confirmRef} placeholder="Re-enter your password" required />
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !ready}>
+                <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
                   {loading ? 'Creating...' : 'Create Account'}
                 </button>
               </form>
