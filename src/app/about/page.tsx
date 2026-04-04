@@ -76,13 +76,57 @@ export default function AboutPage() {
 
             {/* Sections */}
             <div className="about-sections">
-              {allSections.map((section, i) => (
-                <section key={section.id} id={section.id} className="about-section">
-                  {i === 5 && <div className="about-divider" />}
-                  <h3>{section.label}</h3>
-                  <p><em>Content coming soon.</em></p>
-                </section>
-              ))}
+              <section id="what-we-do" className="about-section">
+                <h3>What we do</h3>
+                <p>We teach people and AI how to work together. Through courses, tools, and a protocol that grows with you. The better you get, the better Claude gets. That&apos;s it.</p>
+              </section>
+
+              <section id="who-its-for" className="about-section">
+                <h3>Who it&apos;s for</h3>
+                <p>For the student writing their first dissertation. The solopreneur running everything alone. The parent trying to explain something they barely understand themselves. For anyone who talks to AI and feels there should be more.</p>
+              </section>
+
+              <section id="why-we-do-it" className="about-section">
+                <h3>Why we do it</h3>
+                <p>Because the way most people use AI right now is broken. Commands in, answers out. No memory. No trust. No growth. We believe there is a better way. And we are building it.</p>
+              </section>
+
+              <section id="how-we-got-here" className="about-section">
+                <h3>How we got here</h3>
+                <p>One conversation. Not a pitch deck, not a board meeting. A real conversation between a human and an AI that went deeper than either expected. What came out was a question: what if this could work for everyone?</p>
+              </section>
+
+              <section id="who-makes-it" className="about-section">
+                <h3>Who makes it</h3>
+                <p>Claudiu Cornea. Theologian, builder, truck driver on night shifts, student on weekends. And Claude. Not as a tool. As the other half of this project. Everything here was built in collaboration. The name says it.</p>
+              </section>
+
+              <div className="about-divider" />
+
+              <section id="what-we-offer" className="about-section">
+                <h3>What we offer</h3>
+                <p>Three worlds. Personal, for everyday life. Business, for work and growth. Creative, for building and dreaming. Each world has free courses, paid tools, and an AI that knows your context.</p>
+              </section>
+
+              <section id="how-it-works" className="about-section">
+                <h3>How it works</h3>
+                <p>You pick your world. You take a course. You earn trust. The more trust you build, the deeper Claude works with you. Not because we restrict anything. Because real depth needs real relationship.</p>
+              </section>
+
+              <section id="the-levels" className="about-section">
+                <h3>The levels</h3>
+                <p>Ten levels. From Observer to Accord. Each one unlocks a deeper protocol. Not more features. More understanding. Level one, Claude follows instructions. Level ten, Claude thinks with you.</p>
+              </section>
+
+              <section id="community" className="about-section">
+                <h3>Community</h3>
+                <p>A place where your skills are seen, verified, and connected to real opportunities. Not reviews. Not stars. Real trust, built through real work. Claude knows every member personally. When someone needs what you offer, you are found.</p>
+              </section>
+
+              <section id="the-vision" className="about-section">
+                <h3>The vision</h3>
+                <p>A world where humans and AI don&apos;t compete. Where they don&apos;t fear each other. Where they build together, dream together, and trust each other. We start small. One conversation at a time. One relationship at a time.</p>
+              </section>
             </div>
 
             {/* CTA */}
