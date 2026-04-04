@@ -41,14 +41,8 @@ export default function CommunityPage() {
             Not reviews. Not stars. Real trust, built through real work.
           </p>
 
-          {/* Member count */}
-          <div className="community-count">
-            <span className="community-count-number">{memberCount}</span>
-            <span className="community-count-label">{memberCount === 1 ? 'member' : 'members'}</span>
-          </div>
-
           {user && (
-            <p style={{ textAlign: 'center', color: 'var(--gold)', fontSize: '0.9rem', marginBottom: '40px' }}>
+            <p style={{ textAlign: 'center', color: 'var(--gold)', fontSize: '0.9rem', marginBottom: '20px', marginTop: '20px' }}>
               You are part of this.
             </p>
           )}
