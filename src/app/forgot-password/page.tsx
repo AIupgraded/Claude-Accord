@@ -14,7 +14,7 @@ export default function ForgotPasswordPage() {
         <SubpageHeader />
         <main className="page-content">
           <div className="page-inner">
-            <div className="form-container" style={{ margin: '0 auto' }}>
+            <div className="form-container" style={{ margin: '0 auto' }} id="forgot-container">
               <h2>Reset password</h2>
               <p className="subtitle">Enter your email and we&apos;ll send you a reset link.</p>
               <div className="alert" id="reset-alert"></div>
@@ -27,6 +27,17 @@ export default function ForgotPasswordPage() {
               </form>
               <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                 Remember your password? <Link href="/login">Log in</Link>
+              </p>
+            </div>
+            <div id="forgot-success" style={{ display: 'none' }}>
+              <h2 style={{ color: 'var(--text-heading)', marginBottom: '16px' }}>Check your email</h2>
+              <p className="lead">
+                We&apos;ve sent a password reset link to your email address.
+                Click the link in the email to set a new password.
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '24px' }}>
+                Didn&apos;t receive it? Check your spam folder or{' '}
+                <a href="#" id="try-again-link" style={{ color: 'var(--gold)' }}>try again</a>.
               </p>
             </div>
           </div>
@@ -42,18 +53,31 @@ export default function ForgotPasswordPage() {
             });
           }
 
+          function showAlertLocal(el, message, type) {
+            if (!el) return;
+            el.textContent = message;
+            el.className = 'alert alert-' + type + ' visible';
+          }
+
           document.getElementById('reset-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             var alertEl = document.getElementById('reset-alert');
             var email = document.getElementById('reset-email').value.trim();
-            if (!email) { showAlert(alertEl, 'Please enter your email.', 'error'); return; }
+            if (!email) { showAlertLocal(alertEl, 'Please enter your email.', 'error'); return; }
             var sb = await getSupabase();
             var result = await sb.auth.resetPasswordForEmail(email, {
-              redirectTo: window.location.origin + '/login'
+              redirectTo: window.location.origin + '/reset-password'
             });
-            if (result.error) { showAlert(alertEl, result.error.message, 'error'); return; }
-            showAlert(alertEl, 'Check your email for the reset link.', 'success');
-            e.target.reset();
+            if (result.error) { showAlertLocal(alertEl, result.error.message, 'error'); return; }
+            document.getElementById('forgot-container').style.display = 'none';
+            document.getElementById('forgot-success').style.display = 'block';
+          });
+
+          document.getElementById('try-again-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('forgot-container').style.display = 'block';
+            document.getElementById('forgot-success').style.display = 'none';
+            document.getElementById('reset-alert').className = 'alert';
           });
         `}
       </Script>
