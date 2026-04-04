@@ -21,17 +21,14 @@ export default function McpPage() {
 
             <div className="info-grid">
               <div className="info-block">
-                <div className="block-num">01</div>
                 <h3>Complete the first course</h3>
-                <p>Take The First Accord — free, 10 minutes. You earn Level 1: Observer. This is where it starts.</p>
+                <p>Take The First Accord — free, fifteen minutes. You earn Level 1: Observer. This is where it starts.</p>
               </div>
               <div className="info-block">
-                <div className="block-num">02</div>
                 <h3>Activate your subscription</h3>
                 <p>MCP requires an active subscription on any tier. Your API key generates automatically when both conditions are met.</p>
               </div>
               <div className="info-block">
-                <div className="block-num">03</div>
                 <h3>Connect and start talking</h3>
                 <p>Add the MCP server to your Claude. One URL. Thirty seconds. Claude recognises you from that moment on.</p>
               </div>

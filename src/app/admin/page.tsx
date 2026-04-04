@@ -166,8 +166,9 @@ export default function AdminPage() {
                     <span className="admin-row-sub">{new Date(r.created_at).toLocaleDateString('en-GB')}</span>
                     {r.status === 'pending' && (
                       <div style={{ display: 'flex', gap: '8px' }}>
-                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 100, months: 12 } })}>Approve 100%</button>
-                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 50, months: 12 } })}>Approve 50%</button>
+                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 80, months: 12 } })}>80%</button>
+                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 65, months: 12 } })}>65%</button>
+                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 50, months: 12 } })}>50%</button>
                         <button className="admin-action-btn admin-action-btn--danger" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'denied' } })}>Deny</button>
                       </div>
                     )}
