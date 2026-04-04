@@ -1372,6 +1372,10 @@ a:hover {
   margin-right: auto;
 }
 
+.dashboard-grid--row {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .dashboard-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1479,6 +1483,10 @@ a:hover {
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid--row {
+    grid-template-columns: 1fr 1fr;
   }
 
   .dashboard-worlds {

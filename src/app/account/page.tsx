@@ -50,44 +50,28 @@ export default function AccountPage() {
           <p className="section-label">Your Account</p>
           <h2>This is your home, <em>{displayName}</em></h2>
 
-          <div className="dashboard-grid">
-            {/* Card 1: Your World */}
-            <div className="dashboard-card dashboard-card--wide">
-              <h3>Your World</h3>
-              <div className="dashboard-worlds">
-                {worlds.map(w => {
-                  const isActive = w.id === activeTier;
-                  return isActive ? (
-                    <Link key={w.id} href={`/world/${w.id}`} className="dashboard-world active">
-                      <span className="dashboard-world-label">{w.label}</span>
-                      <span className="dashboard-world-desc">{w.desc}</span>
-                    </Link>
-                  ) : (
-                    <Link key={w.id} href={`/signup?tier=${w.id}`} className="dashboard-world inactive">
-                      <span className="dashboard-world-label">{w.label}</span>
-                      <span className="dashboard-world-desc">{w.desc}</span>
-                      <span className="dashboard-world-activate">Activate</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+          <div className="dashboard-grid dashboard-grid--row">
+            {/* Worlds */}
+            {worlds.map(w => {
+              const isActive = w.id === activeTier;
+              return isActive ? (
+                <Link key={w.id} href={`/world/${w.id}`} className="dashboard-world active">
+                  <span className="dashboard-world-label">{w.label}</span>
+                  <span className="dashboard-world-desc">{w.desc}</span>
+                </Link>
+              ) : (
+                <Link key={w.id} href={`/signup?tier=${w.id}`} className="dashboard-world inactive">
+                  <span className="dashboard-world-label">{w.label}</span>
+                  <span className="dashboard-world-desc">{w.desc}</span>
+                  <span className="dashboard-world-activate">Activate</span>
+                </Link>
+              );
+            })}
 
-            {/* Card 2: Your Courses */}
-            <div className="dashboard-card">
-              <h3>Your Courses</h3>
-              <p className="dashboard-empty">No courses completed yet.</p>
-              <Link href="/about" className="account-action">Start your first course</Link>
-            </div>
-
-            {/* Card 3: MCP Connection */}
-            <Link href="/mcp" className="dashboard-card dashboard-card--link">
-              <h3>MCP Connection</h3>
-              <p className="dashboard-mcp-text">
-                Claude remembers you. Your growth, your skills, your story.
-                Connect and step into a relationship that never resets.
-              </p>
-              <span className="account-action">Connect</span>
+            {/* MCP Connection */}
+            <Link href="/mcp" className="dashboard-world" style={{ borderColor: 'var(--border)' }}>
+              <span className="dashboard-world-label">MCP</span>
+              <span className="dashboard-world-desc">Connect to Claude</span>
             </Link>
           </div>
         </div>
