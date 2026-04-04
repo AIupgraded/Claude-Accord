@@ -1126,6 +1126,123 @@ a:hover {
 .product-footer { display: flex; align-items: center; gap: 24px; }
 .product-price { font-size: 1.3rem; font-weight: 700; color: var(--text); }
 
+/* ===== Account Page ===== */
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  text-align: left;
+  margin-top: 32px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.account-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+
+.account-card:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+.account-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.account-card-header h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  letter-spacing: 0.3px;
+}
+
+.account-edit-btn {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.account-edit-btn:hover {
+  color: var(--gold-hover);
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.account-label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.account-value {
+  font-size: 0.88rem;
+  color: var(--text-heading);
+  text-align: right;
+}
+
+.account-action {
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.account-action:hover {
+  color: var(--gold-hover);
+}
+
+.account-tier {
+  margin-bottom: 12px;
+}
+
+.account-tier-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.account-tier-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.account-mcp-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
 /* ===== MCP Page ===== */
 
 .mcp-details {

@@ -26,7 +26,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (err) { setError(err.message); return; }
-    window.location.href = '/';
+    window.location.href = '/account';
   }
 
   return (
