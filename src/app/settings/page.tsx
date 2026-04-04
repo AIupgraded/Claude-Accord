@@ -139,13 +139,6 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* Your Courses */}
-            <section className="settings-section">
-              <h3>Your Courses</h3>
-              <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontSize: '0.9rem', marginBottom: '16px' }}>No courses completed yet.</p>
-              <Link href="/about" className="account-action">Start your first course</Link>
-            </section>
-
             {/* Security */}
             <section className="settings-section">
               <h3>Security</h3>
