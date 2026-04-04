@@ -79,7 +79,14 @@ export default function ResetPasswordPage() {
     const { error: err } = await supabase.auth.updateUser({ password });
     setSubmitting(false);
 
-    if (err) { setError(err.message); return; }
+    if (err) {
+      if (err.message.toLowerCase().includes('different')) {
+        setError('Building trust starts with a new password. Create one you haven\u2019t used before.');
+      } else {
+        setError(err.message);
+      }
+      return;
+    }
     await supabase.auth.signOut();
     setState('success');
   }
