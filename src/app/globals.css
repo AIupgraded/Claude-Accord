@@ -1068,6 +1068,86 @@ a:hover {
 .product-footer { display: flex; align-items: center; gap: 24px; }
 .product-price { font-size: 1.3rem; font-weight: 700; color: var(--text); }
 
+/* ===== MCP Page ===== */
+
+.mcp-details {
+  text-align: left;
+  max-width: 680px;
+  margin: 20px auto 0;
+}
+
+.mcp-details h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  color: var(--text-heading);
+  margin: 48px 0 24px;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+.mcp-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mcp-tool {
+  display: flex;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+.mcp-tool:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+.mcp-tool-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gold);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.mcp-tool-desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.mcp-tech {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.mcp-tech-row {
+  display: flex;
+  gap: 16px;
+}
+
+.mcp-tech-label {
+  min-width: 80px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mcp-tech code {
+  font-family: 'Courier New', monospace;
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
 /* ===== About Page — TOC Hero ===== */
 
 .about-toc {

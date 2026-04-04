@@ -21,7 +21,7 @@ function SignupContent() {
           <div className="page-inner">
             <div className="form-container" style={{ maxWidth: '720px', margin: '0 auto' }}>
               <h2>Create your account</h2>
-              <p className="subtitle">Choose your tier and start exploring AI prompts.</p>
+              <p className="subtitle">Choose your world. Begin.</p>
               <div className="alert" id="signup-alert"></div>
 
               <div className="tier-buttons" style={{ marginBottom: '28px' }} id="tier-selector">
