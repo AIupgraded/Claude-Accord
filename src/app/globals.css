@@ -1666,6 +1666,17 @@ a:hover {
   left: 0;
 }
 
+.tier-subsidy {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.tier-subsidy a {
+  color: var(--gold);
+}
+
 /* ===== Course Pages ===== */
 
 .course-content {
