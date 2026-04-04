@@ -149,11 +149,11 @@ a:hover {
 
 .btn-header {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: clamp(10px, 1.5vh, 16px) clamp(20px, 3vw, 40px);
+  padding: 8px 18px;
   border: 1px solid rgba(201, 169, 110, 0.4);
   background: transparent;
   color: var(--text);
