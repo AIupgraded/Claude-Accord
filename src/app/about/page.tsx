@@ -89,9 +89,9 @@ export default function AboutPage() {
             <div className="about-cta" id="about-cta">
               <h3>Ready?</h3>
               <div className="tier-buttons">
-                <Link href="/personal" className="tier-btn">Personal</Link>
-                <Link href="/business" className="tier-btn">Business</Link>
-                <Link href="/creative" className="tier-btn">Creative</Link>
+                <Link href="/signup?tier=personal" className="tier-btn">Personal</Link>
+                <Link href="/signup?tier=business" className="tier-btn">Business</Link>
+                <Link href="/signup?tier=creative" className="tier-btn">Creative</Link>
               </div>
               <p className="about-cta-sub">Pick your world. Step in.</p>
             </div>

@@ -5,8 +5,13 @@ import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 import SupabaseProvider from '@/components/SupabaseProvider';
 import Script from 'next/script';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function SignupPage() {
+function SignupContent() {
+  const searchParams = useSearchParams();
+  const tierParam = searchParams.get('tier') || 'personal';
+  const validTier = ['personal', 'business', 'creative'].includes(tierParam) ? tierParam : 'personal';
   return (
     <>
       <SupabaseProvider />
@@ -20,17 +25,17 @@ export default function SignupPage() {
               <div className="alert" id="signup-alert"></div>
 
               <div className="tiers" style={{ marginBottom: '28px' }} id="tier-selector">
-                <div className="tier-card selected" data-tier="personal">
+                <div className={`tier-card${validTier === 'personal' ? ' selected' : ''}`} data-tier="personal">
                   <h3>&#127919; Personal</h3>
                   <p>Productivity, learning, everyday AI</p>
                   <div className="price">Free</div>
                 </div>
-                <div className="tier-card" data-tier="business">
+                <div className={`tier-card${validTier === 'business' ? ' selected' : ''}`} data-tier="business">
                   <h3>&#128188; Business</h3>
                   <p>Marketing, sales, operations</p>
                   <div className="price">Free</div>
                 </div>
-                <div className="tier-card" data-tier="creative">
+                <div className={`tier-card${validTier === 'creative' ? ' selected' : ''}`} data-tier="creative">
                   <h3>&#127912; Creative</h3>
                   <p>Writing, design, content creation</p>
                   <div className="price">Free</div>
@@ -38,7 +43,7 @@ export default function SignupPage() {
               </div>
 
               <form id="signup-form">
-                <input type="hidden" id="signup-tier" defaultValue="personal" />
+                <input type="hidden" id="signup-tier" defaultValue={validTier} />
                 <div className="form-group">
                   <label htmlFor="signup-email">Email</label>
                   <input type="email" id="signup-email" placeholder="you@email.com" required />
@@ -85,5 +90,13 @@ export default function SignupPage() {
         `}
       </Script>
     </>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense>
+      <SignupContent />
+    </Suspense>
   );
 }
