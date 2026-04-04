@@ -40,7 +40,7 @@ export default function AccountPage() {
   }
 
   const displayName = user?.user_metadata?.display_name || user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'friend';
-  const activeTier = user?.user_metadata?.tier || 'personal';
+  const activeWorlds: string[] = user?.user_metadata?.active_worlds || [user?.user_metadata?.tier || 'personal'];
 
   return (
     <div className="subpage">
@@ -53,7 +53,7 @@ export default function AccountPage() {
           <div className="dashboard-grid dashboard-grid--row">
             {/* Worlds */}
             {worlds.map(w => {
-              const isActive = w.id === activeTier;
+              const isActive = activeWorlds.includes(w.id);
               return isActive ? (
                 <Link key={w.id} href={`/world/${w.id}`} className="dashboard-world active">
                   <span className="dashboard-world-label">{w.label}</span>

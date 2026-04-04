@@ -23,8 +23,8 @@ export default function WorldPage({ worldId, worldName, worldDesc }: WorldPagePr
     async function loadUser() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.push('/login'); return; }
-      const tier = user.user_metadata?.tier || 'personal';
-      if (tier !== worldId) { router.push(`/signup?tier=${worldId}`); return; }
+      const activeWorlds: string[] = user.user_metadata?.active_worlds || [user.user_metadata?.tier || 'personal'];
+      if (!activeWorlds.includes(worldId)) { router.push(`/signup?tier=${worldId}`); return; }
       setUser(user);
       setLoading(false);
     }
