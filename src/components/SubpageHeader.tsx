@@ -1,14 +1,33 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSupabase } from '@/lib/useSupabase';
 
 interface SubpageHeaderProps {
   activeNav?: string;
 }
 
 export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
+  const supabase = useSupabase();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setLoaded(true);
+    });
+  }, [supabase]);
+
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'friend';
+  const welcomeMsg = user?.user_metadata?.welcome_message || `Glad to have you back, ${displayName}`;
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  }
 
   return (
     <header className="site-header">
@@ -29,14 +48,20 @@ export default function SubpageHeader({ activeNav }: SubpageHeaderProps) {
       </nav>
 
       <div className="header-auth">
-        <div className="auth-logged-out">
-          <Link href="/login" className="btn-header">Log In</Link>
-          <Link href="/signup" className="btn-header primary">Sign Up</Link>
-        </div>
-        <div className="auth-logged-in">
-          <span className="greeting" id="headerGreeting"></span>
-          <button className="btn-header ghost-small" id="logoutBtn">Sign out</button>
-        </div>
+        {loaded && user ? (
+          <div className="auth-logged-in" style={{ display: 'flex' }}>
+            <div className="header-auth-buttons">
+              <Link href="/settings" className="btn-header">Settings</Link>
+              <button className="btn-header primary" onClick={handleSignOut}>Sign Out</button>
+            </div>
+            <span className="greeting">{welcomeMsg}</span>
+          </div>
+        ) : loaded ? (
+          <div className="auth-logged-out" style={{ display: 'flex' }}>
+            <Link href="/login" className="btn-header">Log In</Link>
+            <Link href="/signup" className="btn-header primary">Sign Up</Link>
+          </div>
+        ) : null}
       </div>
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>&#9776;</button>
     </header>

@@ -127,9 +127,16 @@ a:hover {
 }
 
 .header-auth .auth-logged-in {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.header-auth-buttons {
+  display: flex;
+  gap: 10px;
   align-items: center;
-  gap: 14px;
 }
 
 .greeting {
@@ -1241,6 +1248,242 @@ a:hover {
   color: var(--text-muted);
   line-height: 1.6;
   margin-bottom: 16px;
+}
+
+/* ===== World Pages ===== */
+
+.world-sections {
+  text-align: left;
+  max-width: 680px;
+  margin: 20px auto 0;
+}
+
+.world-section {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.world-section:last-child {
+  border-bottom: none;
+}
+
+.world-section > h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.world-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.world-progress-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.world-progress-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.world-progress-value {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .world-progress-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Settings ===== */
+
+.settings-sections {
+  text-align: left;
+  max-width: 560px;
+  margin: 32px auto 0;
+}
+
+.settings-section {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.settings-danger h3 {
+  color: var(--danger);
+}
+
+.settings-world-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.settings-world-active {
+  display: inline-block;
+  padding: 6px 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== Dashboard ===== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  text-align: left;
+  margin-top: 32px;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboard-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+
+.dashboard-card:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+.dashboard-card--wide {
+  grid-column: 1 / -1;
+}
+
+.dashboard-card--link {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dashboard-card h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.dashboard-worlds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.dashboard-world {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 12px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.dashboard-world.active {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.dashboard-world.active:hover {
+  background: rgba(201, 169, 110, 0.25);
+}
+
+.dashboard-world.inactive {
+  opacity: 0.5;
+}
+
+.dashboard-world.inactive:hover {
+  opacity: 0.8;
+  border-color: var(--border);
+}
+
+.dashboard-world-label {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dashboard-world-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.dashboard-world-activate {
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.dashboard-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.dashboard-mcp-text {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-worlds {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ===== MCP Page ===== */
