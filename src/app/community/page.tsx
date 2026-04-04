@@ -49,7 +49,7 @@ export default function CommunityPage() {
 
           {user && (
             <p style={{ textAlign: 'center', color: 'var(--gold)', fontSize: '0.9rem', marginBottom: '40px' }}>
-              You are member #{members.findIndex(m => m.display_name === (user.user_metadata?.display_name || user.email?.split('@')[0])) + 1 || memberCount}
+              You are part of this.
             </p>
           )}
 
