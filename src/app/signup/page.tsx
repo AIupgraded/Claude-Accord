@@ -24,22 +24,10 @@ function SignupContent() {
               <p className="subtitle">Choose your tier and start exploring AI prompts.</p>
               <div className="alert" id="signup-alert"></div>
 
-              <div className="tiers" style={{ marginBottom: '28px' }} id="tier-selector">
-                <div className={`tier-card${validTier === 'personal' ? ' selected' : ''}`} data-tier="personal">
-                  <h3>&#127919; Personal</h3>
-                  <p>Productivity, learning, everyday AI</p>
-                  <div className="price">Free</div>
-                </div>
-                <div className={`tier-card${validTier === 'business' ? ' selected' : ''}`} data-tier="business">
-                  <h3>&#128188; Business</h3>
-                  <p>Marketing, sales, operations</p>
-                  <div className="price">Free</div>
-                </div>
-                <div className={`tier-card${validTier === 'creative' ? ' selected' : ''}`} data-tier="creative">
-                  <h3>&#127912; Creative</h3>
-                  <p>Writing, design, content creation</p>
-                  <div className="price">Free</div>
-                </div>
+              <div className="tier-buttons" style={{ marginBottom: '28px' }} id="tier-selector">
+                <button type="button" className={`tier-btn${validTier === 'personal' ? ' selected' : ''}`} data-tier="personal">Personal</button>
+                <button type="button" className={`tier-btn${validTier === 'business' ? ' selected' : ''}`} data-tier="business">Business</button>
+                <button type="button" className={`tier-btn${validTier === 'creative' ? ' selected' : ''}`} data-tier="creative">Creative</button>
               </div>
 
               <form id="signup-form">
@@ -64,11 +52,11 @@ function SignupContent() {
       </div>
       <Script id="signup-handler" strategy="afterInteractive">
         {`
-          document.querySelectorAll('#tier-selector .tier-card').forEach(function(card) {
-            card.addEventListener('click', function() {
-              document.querySelectorAll('#tier-selector .tier-card').forEach(function(c) { c.classList.remove('selected'); });
-              card.classList.add('selected');
-              document.getElementById('signup-tier').value = card.dataset.tier;
+          document.querySelectorAll('#tier-selector .tier-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              document.querySelectorAll('#tier-selector .tier-btn').forEach(function(b) { b.classList.remove('selected'); });
+              btn.classList.add('selected');
+              document.getElementById('signup-tier').value = btn.dataset.tier;
             });
           });
 
