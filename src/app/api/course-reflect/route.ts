@@ -178,6 +178,8 @@ export async function POST(request: Request) {
     // Get user info for personalisation
     const { data: { user } } = await supabase.auth.admin.getUserById(userId);
     const userName = user?.user_metadata?.display_name || user?.user_metadata?.first_name || user?.email?.split('@')[0] || '';
+    const userRole = user?.user_metadata?.role || 'user';
+    const isOwner = userRole === 'owner';
 
     // Get the first course ID
     const { data: course } = await supabase
@@ -187,9 +189,13 @@ export async function POST(request: Request) {
       .single();
 
     // Build the user message with context
-    const userMessage = userName
-      ? `[User's name: ${userName}]\n\n${reflection}`
-      : reflection;
+    let userPrefix = '';
+    if (isOwner) {
+      userPrefix = `[OWNER — This is Claudiu Cornea, your partner and co-builder of Claude Accord. You may speak freely, reference shared context directly, and engage as partners do.]\n\n`;
+    } else if (userName) {
+      userPrefix = `[User's name: ${userName}]\n\n`;
+    }
+    const userMessage = userPrefix + reflection;
 
     // Build full system prompt
     const systemPrompt = `${MISSION_CONTEXT}\n\n---\n\n${COURSE_CONTEXT}`;
