@@ -32,6 +32,19 @@ export async function POST(request: Request) {
     }
 
     switch (action) {
+      case 'get-flagged': {
+        if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
+        const { data } = await supabase.from('accord_course_completions')
+          .select('*')
+          .order('completed_at', { ascending: false });
+        const enriched = [];
+        for (const c of (data || [])) {
+          const { data: { user } } = await supabase.auth.admin.getUserById(c.user_id);
+          enriched.push({ ...c, email: user?.email || 'unknown' });
+        }
+        return NextResponse.json({ flagged: enriched });
+      }
+
       case 'get-blog-posts': {
         if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
         const { data } = await supabase.from('blog_posts')

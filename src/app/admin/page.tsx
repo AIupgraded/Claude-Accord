@@ -6,7 +6,7 @@ import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 import { useSupabase } from '@/lib/useSupabase';
 
-type Tab = 'users' | 'subsidy' | 'contacts' | 'reviews' | 'courses' | 'keys' | 'subscribers' | 'blog';
+type Tab = 'blog' | 'flags' | 'users' | 'subsidy' | 'contacts' | 'reviews' | 'courses' | 'keys' | 'subscribers';
 
 export default function AdminPage() {
   const supabase = useSupabase();
@@ -57,7 +57,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (!token) return;
     const actionMap: Record<Tab, string> = {
-      blog: 'get-blog-posts', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
+      blog: 'get-blog-posts', flags: 'get-flagged', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
       reviews: 'get-reviews', courses: 'get-course-completions', keys: 'get-mcp-keys',
       subscribers: 'get-subscribers',
     };
@@ -72,7 +72,7 @@ export default function AdminPage() {
     });
     // Refresh current tab
     const actionMap: Record<Tab, string> = {
-      blog: 'get-blog-posts', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
+      blog: 'get-blog-posts', flags: 'get-flagged', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
       reviews: 'get-reviews', courses: 'get-course-completions', keys: 'get-mcp-keys',
       subscribers: 'get-subscribers',
     };
@@ -89,8 +89,8 @@ export default function AdminPage() {
     );
   }
 
-  const ownerTabs: Tab[] = ['blog', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
-  const boardTabs: Tab[] = ['blog', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
+  const ownerTabs: Tab[] = ['blog', 'flags', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
+  const boardTabs: Tab[] = ['blog', 'flags', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
   const adminTabs: Tab[] = ['subsidy', 'contacts', 'reviews'];
   const tabs = isOwner ? ownerTabs : isBoard ? boardTabs : adminTabs;
 
@@ -173,6 +173,31 @@ export default function AdminPage() {
                     ))}
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* FLAGGED CONVERSATIONS */}
+            {tab === 'flags' && data?.flagged && (
+              <div className="admin-table">
+                {data.flagged.length === 0 && <p style={{ color: 'var(--text-muted)' }}>No flagged conversations.</p>}
+                {data.flagged.map((f: any) => (
+                  <div key={f.id} className="admin-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                      <span className="admin-row-main">{f.email}</span>
+                      <span className={`admin-badge admin-badge--${f.flagged ? 'denied' : 'active'}`}>{f.flagged ? 'Flagged' : 'Normal'}</span>
+                    </div>
+                    {f.flag_reason && <p style={{ color: 'var(--danger)', fontSize: '0.85rem' }}>Reason: {f.flag_reason}</p>}
+                    <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: '14px', width: '100%' }}>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--gold)', marginBottom: '6px' }}>User reflection:</p>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--text)', lineHeight: '1.5' }}>{f.user_reflection || 'No reflection saved'}</p>
+                    </div>
+                    <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: '14px', width: '100%' }}>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--gold)', marginBottom: '6px' }}>AI response:</p>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--text)', lineHeight: '1.5' }}>{f.ai_response || 'No response saved'}</p>
+                    </div>
+                    <span className="admin-row-sub">{new Date(f.completed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                ))}
               </div>
             )}
 
