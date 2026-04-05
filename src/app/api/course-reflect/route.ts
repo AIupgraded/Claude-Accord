@@ -218,13 +218,14 @@ export async function POST(request: Request) {
       }
     }
 
-    // Record completion
+    // Record completion with user's reflection
     if (course?.id) {
       await supabase.from('accord_course_completions').insert({
         user_id: userId,
         course_id: course.id,
         score: 100,
         level_earned: 1,
+        user_reflection: reflection,
       } as any);
     }
 
