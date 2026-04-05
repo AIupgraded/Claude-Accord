@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — Creative' };
+export const metadata: Metadata = { title: 'Creative', description: 'Code, design, writing, ideas. Claude Accord Creative — where your imagination meets an intelligence that sees patterns you cannot.', openGraph: { title: 'Claude Accord Creative' } };
 
 export default function CreativePage() {
   return (

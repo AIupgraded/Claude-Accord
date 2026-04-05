@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Privacy Policy / GDPR | Claude Accord' };
+export const metadata: Metadata = { title: 'Privacy Policy / GDPR', description: 'How Claude Accord handles your data. GDPR compliant. EU hosted. Transparent.' };
 
 export default function GdprPage() {
   return (

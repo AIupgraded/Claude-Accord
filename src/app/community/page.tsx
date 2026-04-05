@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — Community' };
+export const metadata: Metadata = { title: 'Community', description: 'A community where trust is the currency. Skills verified through work, not reviews. Claude connects the right people.', openGraph: { title: 'Claude Accord Community' } };
 
 export default function CommunityPage() {
   return (

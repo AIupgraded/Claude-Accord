@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — About' };
+export const metadata: Metadata = { title: 'About', description: 'Claude Accord is a framework for genuine human-AI collaboration. Learn what we do, why, and how we got here.', openGraph: { title: 'About Claude Accord' } };
 
 const leftItems = [
   { id: 'what-we-do', label: 'What we do' },

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — Personal' };
+export const metadata: Metadata = { title: 'Personal', description: 'Your life, your questions, your growth. Claude Accord Personal — courses, tools, and a relationship with AI that remembers you.', openGraph: { title: 'Claude Accord Personal' } };
 
 export default function PersonalPage() {
   return (

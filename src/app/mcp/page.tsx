@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — MCP' };
+export const metadata: Metadata = { title: 'MCP', description: 'Connect Claude Accord directly to your Claude via MCP. Memory, trust, and a protocol that knows you.', openGraph: { title: 'Claude Accord MCP' } };
 
 export default function McpPage() {
   return (

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — Business' };
+export const metadata: Metadata = { title: 'Business', description: 'Strategy, communication, analysis. Claude Accord Business — where you and Claude work on what matters most for your business.', openGraph: { title: 'Claude Accord Business' } };
 
 export default function BusinessPage() {
   return (

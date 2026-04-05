@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 
-export const metadata: Metadata = { title: 'Claude Accord — Resources' };
+export const metadata: Metadata = { title: 'Resources', description: 'Guides, references, and materials for working with the Claude Accord protocol.', openGraph: { title: 'Claude Accord Resources' } };
 
 export default function ResourcesPage() {
   return (

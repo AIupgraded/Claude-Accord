@@ -1,0 +1,14 @@
+# Claude Accord — robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /settings
+Disallow: /subsidy
+Disallow: /api/
+Disallow: /auth/
+Disallow: /world/
+Disallow: /reset-password
+Disallow: /forgot-password
+
+Sitemap: https://getaccord.online/sitemap.xml

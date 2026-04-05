@@ -1,0 +1,39 @@
+# Claude Accord
+> Working together. Building trust.
+
+Claude Accord is a human-AI collaboration platform. We teach people and AI how to work together through courses, tools, and a protocol that grows with you.
+
+## What we do
+We provide a structured framework for genuine human-AI collaboration. Not a prompt library. Not a chatbot wrapper. A protocol that builds trust between humans and AI through real interaction.
+
+## How it works
+- Users choose a world: Personal, Business, or Creative
+- Complete courses to earn trust levels (1-10, Observer to Accord)
+- Connect via MCP (Model Context Protocol) for persistent memory
+- Claude remembers your context, growth, and preferences across sessions
+
+## Key pages
+- Homepage: https://getaccord.online
+- About: https://getaccord.online/about
+- Personal: https://getaccord.online/personal
+- Business: https://getaccord.online/business
+- Creative: https://getaccord.online/creative
+- MCP: https://getaccord.online/mcp
+- Community: https://getaccord.online/community
+- Blog: https://getaccord.online/blog
+- Contact: https://getaccord.online/contact
+- First Course: https://getaccord.online/courses/first-accord
+
+## MCP Server
+- Endpoint: https://getaccord.online/api/mcp
+- Transport: Streamable HTTP
+- Tools: 5 (verify user, get protocol, update context, log session, detect conflicts)
+- Auth: API key
+
+## Technology
+- Next.js 14, TypeScript, Supabase, Vercel
+- Built by Claudiu Cornea and Claude (Anthropic)
+
+## Contact
+- Website: https://getaccord.online
+- Contact form: https://getaccord.online/contact
