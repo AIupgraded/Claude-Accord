@@ -189,7 +189,7 @@ export async function POST(request: Request) {
 
     if (ANTHROPIC_API_KEY) {
       try {
-        const model = process.env.COURSE_MODEL || 'claude-opus-4-20250514';
+        const model = process.env.COURSE_MODEL || 'claude-sonnet-4-20250514';
 
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
