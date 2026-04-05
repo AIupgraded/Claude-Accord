@@ -145,13 +145,14 @@ export default function FirstAccordPage() {
                   <div className="page-cta" style={{ marginTop: '32px', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                     <Link href="/account" className="btn btn-primary">Go to Dashboard</Link>
                     {user?.user_metadata?.subscription_active ? (
-                      <p style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>Your MCP key is active. Connect in Settings.</p>
+                      <p style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>Your MCP key is active. <Link href="/settings" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>Connect in Settings</Link>.</p>
                     ) : (
                       <>
                         <p style={{ color: 'var(--text)', fontSize: '1.1rem', marginTop: '8px', textAlign: 'center', lineHeight: '1.6' }}>
-                          Want Claude to remember you?<br />Activate a subscription to unlock your MCP key.
+                          Want Claude to remember you?<br />
+                          <Link href="/personal" style={{ color: 'var(--gold)' }}>Activate a subscription</Link> to unlock your MCP key.
                         </p>
-                        <Link href="/personal" className="btn btn-outline">See Plans</Link>
+                        <Link href="/personal" className="btn btn-primary">See Plans</Link>
                       </>
                     )}
                   </div>

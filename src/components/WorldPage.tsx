@@ -18,6 +18,10 @@ export default function WorldPage({ worldId, worldName, worldDesc }: WorldPagePr
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [coursesCompleted, setCoursesCompleted] = useState(0);
+  const [hasFirstCourse, setHasFirstCourse] = useState(false);
+  const [trustLevel, setTrustLevel] = useState(1);
+  const [protocolName, setProtocolName] = useState('Observer');
 
   useEffect(() => {
     async function loadUser() {
@@ -26,6 +30,31 @@ export default function WorldPage({ worldId, worldName, worldDesc }: WorldPagePr
       const activeWorlds: string[] = user.user_metadata?.active_worlds || [user.user_metadata?.tier || 'personal'];
       if (!activeWorlds.includes(worldId)) { router.push(`/signup?tier=${worldId}`); return; }
       setUser(user);
+
+      // Load course completions (course 1 is universal - shows in all worlds)
+      const { data: completions, count } = await supabase
+        .from('accord_course_completions')
+        .select('*', { count: 'exact' })
+        .eq('user_id', user.id);
+      setCoursesCompleted(count || 0);
+      setHasFirstCourse((completions || []).length > 0);
+
+      // Load progress
+      const { data: progress } = await supabase
+        .from('accord_user_progress')
+        .select('trust_level, current_protocol_level')
+        .eq('user_id', user.id)
+        .single() as any;
+      if (progress) {
+        setTrustLevel(progress.trust_level);
+        const { data: level } = await supabase
+          .from('accord_levels')
+          .select('name')
+          .eq('level', progress.current_protocol_level)
+          .single() as any;
+        if (level) setProtocolName(level.name);
+      }
+
       setLoading(false);
     }
     loadUser();
@@ -54,11 +83,11 @@ export default function WorldPage({ worldId, worldName, worldDesc }: WorldPagePr
             <section className="world-section">
               <h3>Your Courses</h3>
               <div className="info-grid">
-                <div className="info-block">
-                  <div className="block-num">Coming soon</div>
-                  <h3>No courses yet</h3>
-                  <p>Your first course is being prepared. You&apos;ll be notified when it&apos;s ready.</p>
-                </div>
+                <Link href="/courses/first-accord" className="info-block" style={{ textDecoration: 'none' }}>
+                  <div className="block-num">{hasFirstCourse ? 'Completed' : 'Available'}</div>
+                  <h3>The First Accord</h3>
+                  <p>{hasFirstCourse ? 'Level 1: Observer unlocked.' : 'Fifteen minutes. Your first step into collaboration.'}</p>
+                </Link>
               </div>
             </section>
 
@@ -75,15 +104,15 @@ export default function WorldPage({ worldId, worldName, worldDesc }: WorldPagePr
               <div className="world-progress-grid">
                 <div className="world-progress-item">
                   <span className="world-progress-label">Trust Level</span>
-                  <span className="world-progress-value">1</span>
+                  <span className="world-progress-value">{trustLevel}</span>
                 </div>
                 <div className="world-progress-item">
                   <span className="world-progress-label">Protocol Level</span>
-                  <span className="world-progress-value">Observer</span>
+                  <span className="world-progress-value">{protocolName}</span>
                 </div>
                 <div className="world-progress-item">
                   <span className="world-progress-label">Courses Completed</span>
-                  <span className="world-progress-value">0</span>
+                  <span className="world-progress-value">{coursesCompleted}</span>
                 </div>
               </div>
             </section>
