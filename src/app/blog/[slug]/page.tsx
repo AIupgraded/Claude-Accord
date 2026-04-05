@@ -73,6 +73,24 @@ export default function BlogPostPage() {
               if (paragraph.startsWith('### ')) {
                 return <h4 key={i}>{paragraph.replace('### ', '')}</h4>;
               }
+              // Handle markdown links [text](url)
+              const linkMatch = paragraph.match(/^\[(.+?)\]\((.+?)\)$/);
+              if (linkMatch) {
+                return <div key={i} className="page-cta"><a href={linkMatch[2]} className="btn btn-primary">{linkMatch[1]}</a></div>;
+              }
+              // Handle inline links within text
+              const parts = paragraph.split(/(\[.+?\]\(.+?\))/);
+              if (parts.length > 1) {
+                return (
+                  <p key={i}>
+                    {parts.map((part, j) => {
+                      const m = part.match(/^\[(.+?)\]\((.+?)\)$/);
+                      if (m) return <a key={j} href={m[2]} style={{ color: 'var(--gold)' }}>{m[1]}</a>;
+                      return <span key={j}>{part}</span>;
+                    })}
+                  </p>
+                );
+              }
               return <p key={i}>{paragraph}</p>;
             })}
           </div>
