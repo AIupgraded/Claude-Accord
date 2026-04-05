@@ -32,6 +32,45 @@ export async function POST(request: Request) {
     }
 
     switch (action) {
+      case 'get-blog-posts': {
+        if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
+        const { data } = await supabase.from('blog_posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+        return NextResponse.json({ posts: data || [] });
+      }
+
+      case 'create-blog-post': {
+        if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
+        const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const { error } = await supabase.from('blog_posts').insert({
+          title: data.title,
+          slug,
+          content: data.content,
+          excerpt: data.excerpt || null,
+          author_id: caller.id,
+          status: data.status || 'draft',
+          published_at: data.status === 'published' ? new Date().toISOString() : null,
+        } as any);
+        if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ success: true });
+      }
+
+      case 'publish-blog-post': {
+        if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
+        const { error } = await supabase.from('blog_posts')
+          .update({ status: 'published', published_at: new Date().toISOString() } as any)
+          .eq('id', data.postId);
+        if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ success: true });
+      }
+
+      case 'delete-blog-post': {
+        if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
+        await supabase.from('blog_posts').delete().eq('id', data.postId);
+        return NextResponse.json({ success: true });
+      }
+
       case 'get-users': {
         if (!isOwner && !isBoard) return NextResponse.json({ error: 'Owner/Board only' }, { status: 403 });
         const { data: { users } } = await supabase.auth.admin.listUsers();

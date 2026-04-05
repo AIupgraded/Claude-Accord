@@ -1900,6 +1900,137 @@ a:hover {
   }
 }
 
+/* ===== Blog ===== */
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-card {
+  display: block;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+
+.blog-card:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+.blog-card-date {
+  font-size: 0.78rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.blog-card-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 8px 0 6px;
+}
+
+.blog-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.blog-empty {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.blog-subscribe {
+  margin-top: 48px;
+  text-align: center;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-subscribe h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.blog-subscribe p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.blog-subscribe-form {
+  display: flex;
+  gap: 10px;
+}
+
+.blog-subscribe-form input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.blog-subscribe-form input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.blog-article {
+  text-align: left;
+  max-width: 680px;
+  margin: 32px auto 0;
+}
+
+.blog-article p {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.blog-article h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 32px 0 16px;
+}
+
+.blog-article h4 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 24px 0 12px;
+}
+
+@media (max-width: 768px) {
+  .blog-subscribe-form {
+    flex-direction: column;
+  }
+}
+
 /* ===== Community Page ===== */
 
 .community-count {

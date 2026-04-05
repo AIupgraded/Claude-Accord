@@ -6,17 +6,22 @@ import SubpageHeader from '@/components/SubpageHeader';
 import SubpageFooter from '@/components/SubpageFooter';
 import { useSupabase } from '@/lib/useSupabase';
 
-type Tab = 'users' | 'subsidy' | 'contacts' | 'reviews' | 'courses' | 'keys' | 'subscribers';
+type Tab = 'users' | 'subsidy' | 'contacts' | 'reviews' | 'courses' | 'keys' | 'subscribers' | 'blog';
 
 export default function AdminPage() {
   const supabase = useSupabase();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState<string>('');
-  const [tab, setTab] = useState<Tab>('subsidy');
+  const [tab, setTab] = useState<Tab>('blog');
   const [data, setData] = useState<any>(null);
   const [fetching, setFetching] = useState(false);
   const [token, setToken] = useState('');
+  const [blogTitle, setBlogTitle] = useState('');
+  const [blogContent, setBlogContent] = useState('');
+  const [blogExcerpt, setBlogExcerpt] = useState('');
+  const [blogSaving, setBlogSaving] = useState(false);
+  const [blogMsg, setBlogMsg] = useState('');
 
   const isOwner = role === 'owner';
   const isBoard = role === 'board';
@@ -52,7 +57,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (!token) return;
     const actionMap: Record<Tab, string> = {
-      users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
+      blog: 'get-blog-posts', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
       reviews: 'get-reviews', courses: 'get-course-completions', keys: 'get-mcp-keys',
       subscribers: 'get-subscribers',
     };
@@ -67,7 +72,7 @@ export default function AdminPage() {
     });
     // Refresh current tab
     const actionMap: Record<Tab, string> = {
-      users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
+      blog: 'get-blog-posts', users: 'get-users', subsidy: 'get-subsidy-requests', contacts: 'get-contacts',
       reviews: 'get-reviews', courses: 'get-course-completions', keys: 'get-mcp-keys',
       subscribers: 'get-subscribers',
     };
@@ -84,8 +89,8 @@ export default function AdminPage() {
     );
   }
 
-  const ownerTabs: Tab[] = ['users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
-  const boardTabs: Tab[] = ['users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
+  const ownerTabs: Tab[] = ['blog', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
+  const boardTabs: Tab[] = ['blog', 'users', 'subsidy', 'contacts', 'reviews', 'courses', 'keys', 'subscribers'];
   const adminTabs: Tab[] = ['subsidy', 'contacts', 'reviews'];
   const tabs = isOwner ? ownerTabs : isBoard ? boardTabs : adminTabs;
 
@@ -109,6 +114,67 @@ export default function AdminPage() {
           {/* Content */}
           <div className="admin-content">
             {fetching ? <p style={{ color: 'var(--text-muted)' }}>Loading...</p> : null}
+
+            {/* BLOG */}
+            {tab === 'blog' && (
+              <div>
+                {/* Write new post */}
+                <div className="admin-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '12px', marginBottom: '20px' }}>
+                  <h4 style={{ color: 'var(--text-heading)', fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.1rem' }}>New Post</h4>
+                  {blogMsg && <p style={{ color: 'var(--gold)', fontSize: '0.9rem' }}>{blogMsg}</p>}
+                  <input type="text" value={blogTitle} onChange={e => setBlogTitle(e.target.value)} placeholder="Title" style={{ width: '100%', padding: '10px 14px', background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)', fontFamily: 'inherit', fontSize: '1rem' }} />
+                  <input type="text" value={blogExcerpt} onChange={e => setBlogExcerpt(e.target.value)} placeholder="Excerpt (one sentence for preview)" style={{ width: '100%', padding: '10px 14px', background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)', fontFamily: 'inherit', fontSize: '0.9rem' }} />
+                  <textarea value={blogContent} onChange={e => setBlogContent(e.target.value)} placeholder="Content (use double newlines for paragraphs, ## for headings)" rows={10} style={{ width: '100%', padding: '12px 14px', background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)', fontFamily: 'inherit', fontSize: '0.9rem', resize: 'vertical' }} />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button className="admin-action-btn" disabled={blogSaving || !blogTitle.trim() || !blogContent.trim()} onClick={async () => {
+                      setBlogSaving(true); setBlogMsg('');
+                      await adminAction('create-blog-post', { data: { title: blogTitle, content: blogContent, excerpt: blogExcerpt, status: 'draft' } });
+                      setBlogTitle(''); setBlogContent(''); setBlogExcerpt(''); setBlogMsg('Draft saved.');
+                      setBlogSaving(false);
+                    }}>Save Draft</button>
+                    <button className="admin-action-btn" disabled={blogSaving || !blogTitle.trim() || !blogContent.trim()} onClick={async () => {
+                      setBlogSaving(true); setBlogMsg('');
+                      await adminAction('create-blog-post', { data: { title: blogTitle, content: blogContent, excerpt: blogExcerpt, status: 'published' } });
+                      setBlogTitle(''); setBlogContent(''); setBlogExcerpt(''); setBlogMsg('Published.');
+                      setBlogSaving(false);
+                    }}>Publish</button>
+                  </div>
+                </div>
+
+                {/* Existing posts */}
+                {data?.posts && (
+                  <div className="admin-table">
+                    {data.posts.map((p: any) => (
+                      <div key={p.id} className="admin-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                          <span className="admin-row-main">{p.title}</span>
+                          <span className={`admin-badge admin-badge--${p.status === 'published' ? 'active' : 'pending'}`}>{p.status}</span>
+                        </div>
+                        {p.excerpt && <span className="admin-row-sub">{p.excerpt}</span>}
+                        <span className="admin-row-sub">{new Date(p.created_at).toLocaleDateString('en-GB')}</span>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          {p.status === 'draft' && (
+                            <button className="admin-action-btn" onClick={() => adminAction('publish-blog-post', { data: { postId: p.id } })}>Publish</button>
+                          )}
+                          {p.status === 'published' && !p.newsletter_sent && (
+                            <button className="admin-action-btn" onClick={async () => {
+                              await fetch('/api/newsletter', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                                body: JSON.stringify({ postId: p.id }),
+                              });
+                              fetchData('get-blog-posts');
+                            }}>Send Newsletter</button>
+                          )}
+                          {p.newsletter_sent && <span className="admin-badge admin-badge--approved">Newsletter sent</span>}
+                          <button className="admin-action-btn admin-action-btn--danger" onClick={() => adminAction('delete-blog-post', { data: { postId: p.id } })}>Delete</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* USERS (owner only) */}
             {tab === 'users' && data?.users && (
