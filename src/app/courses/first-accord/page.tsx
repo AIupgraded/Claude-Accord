@@ -139,14 +139,17 @@ export default function FirstAccordPage() {
                     <span className="course-level-number">1</span>
                     <span className="course-level-name">Observer</span>
                   </div>
-                  <div className="page-cta" style={{ marginTop: '32px', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '12px' }}>
+                    Level 1 unlocked, {user?.user_metadata?.display_name || user?.user_metadata?.first_name || user?.email?.split('@')[0]}.
+                  </p>
+                  <div className="page-cta" style={{ marginTop: '32px', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                     <Link href="/account" className="btn btn-primary">Go to Dashboard</Link>
                     {user?.user_metadata?.subscription_active ? (
-                      <p style={{ color: 'var(--gold)', fontSize: '0.9rem' }}>Your MCP key is active. Connect in Settings.</p>
+                      <p style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>Your MCP key is active. Connect in Settings.</p>
                     ) : (
                       <>
-                        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '8px' }}>
-                          Want Claude to remember you? Activate a subscription to unlock your MCP key.
+                        <p style={{ color: 'var(--text)', fontSize: '1.1rem', marginTop: '8px', textAlign: 'center', lineHeight: '1.6' }}>
+                          Want Claude to remember you?<br />Activate a subscription to unlock your MCP key.
                         </p>
                         <Link href="/personal" className="btn btn-outline">See Plans</Link>
                       </>
