@@ -20,10 +20,10 @@ export default function McpPage() {
             </p>
 
             <div className="info-grid">
-              <div className="info-block">
+              <Link href="/courses/first-accord" className="info-block" style={{ textDecoration: 'none' }}>
                 <h3>Complete the first course</h3>
                 <p>Take The First Accord — free, fifteen minutes. You earn Level 1: Observer. This is where it starts.</p>
-              </div>
+              </Link>
               <div className="info-block">
                 <h3>Activate your subscription</h3>
                 <p>MCP requires an active subscription on any tier. Your API key generates automatically when both conditions are met.</p>
