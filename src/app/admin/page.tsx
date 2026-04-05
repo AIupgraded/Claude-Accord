@@ -256,10 +256,19 @@ export default function AdminPage() {
                     <p style={{ fontSize: '0.9rem', color: 'var(--text)', lineHeight: '1.6' }}>{r.message}</p>
                     <span className="admin-row-sub">{new Date(r.created_at).toLocaleDateString('en-GB')}</span>
                     {r.status === 'pending' && (
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 80, months: 12 } })}>80%</button>
-                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 65, months: 12 } })}>65%</button>
-                        <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 50, months: 12 } })}>50%</button>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {r.message?.includes('[STUDENT') ? (
+                          <>
+                            <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 75, months: 12 } })}>75%</button>
+                            <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 50, months: 12 } })}>50%</button>
+                          </>
+                        ) : (
+                          <>
+                            <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 80, months: 12 } })}>80%</button>
+                            <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 65, months: 12 } })}>65%</button>
+                            <button className="admin-action-btn" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'approved', discount: 50, months: 12 } })}>50%</button>
+                          </>
+                        )}
                         <button className="admin-action-btn admin-action-btn--danger" onClick={() => adminAction('update-subsidy', { data: { requestId: r.id, status: 'denied' } })}>Deny</button>
                       </div>
                     )}

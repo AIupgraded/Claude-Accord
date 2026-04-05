@@ -15,6 +15,7 @@ export default function SubsidyPage() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
+  const [subsidyType, setSubsidyType] = useState('personal');
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -36,10 +37,12 @@ export default function SubsidyPage() {
       return;
     }
 
+    const fullMessage = `[${subsidyType.toUpperCase()}] ${message}`;
+
     setSending(true);
     const { error: err } = await supabase.from('subsidy_requests').insert([{
       user_id: user.id,
-      message,
+      message: fullMessage,
     }] as any);
     setSending(false);
 
@@ -69,6 +72,20 @@ export default function SubsidyPage() {
               {error && <div className="alert alert-error visible">{error}</div>}
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
+                  <label>What are you applying for?</label>
+                  <div className="tier-buttons" style={{ marginTop: '8px', marginBottom: '8px' }}>
+                    <button type="button" className={`tier-btn${subsidyType === 'personal' ? ' selected' : ''}`} onClick={() => setSubsidyType('personal')}>Personal</button>
+                    <button type="button" className={`tier-btn${subsidyType === 'student-business' ? ' selected' : ''}`} onClick={() => setSubsidyType('student-business')}>Student Business</button>
+                    <button type="button" className={`tier-btn${subsidyType === 'student-creative' ? ' selected' : ''}`} onClick={() => setSubsidyType('student-creative')}>Student Creative</button>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    {subsidyType === 'personal' && 'Personal subscription — up to 80% discount.'}
+                    {subsidyType === 'student-business' && 'Student access to Business — 50% or 75% discount with valid student status.'}
+                    {subsidyType === 'student-creative' && 'Student access to Creative — 50% or 75% discount with valid student status.'}
+                  </p>
+                </div>
+                <div className="form-group">
+                  <label>About you</label>
                   <textarea ref={messageRef} placeholder="A few sentences about your situation..." rows={6} required minLength={20} style={{ resize: 'vertical' }} />
                 </div>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={sending}>
@@ -81,7 +98,7 @@ export default function SubsidyPage() {
               <h2 style={{ color: 'var(--text-heading)', marginBottom: '16px' }}>Thank you</h2>
               <p className="lead">We&apos;ll review your request and get back to you.</p>
               <div className="page-cta" style={{ marginTop: '24px' }}>
-                <Link href="/personal" className="btn btn-outline">Back to Personal</Link>
+                <Link href="/account" className="btn btn-outline">Back to Dashboard</Link>
               </div>
             </div>
           )}
