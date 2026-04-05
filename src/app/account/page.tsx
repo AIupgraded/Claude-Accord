@@ -42,6 +42,8 @@ export default function AccountPage() {
   const displayName = user?.user_metadata?.display_name || user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'friend';
   const activeWorlds: string[] = user?.user_metadata?.active_worlds || [user?.user_metadata?.tier || 'personal'];
 
+  const isSubscribed = user?.user_metadata?.subscription_active;
+
   return (
     <div className="subpage">
       <SubpageHeader />
@@ -49,6 +51,12 @@ export default function AccountPage() {
         <div className="page-inner">
           <p className="section-label">Your Account</p>
           <h2>This is your home, <em>{displayName}</em></h2>
+
+          {!isSubscribed && (
+            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+              <Link href="/subscribe" className="btn btn-primary">Subscribe — unlock Claude&apos;s memory</Link>
+            </div>
+          )}
 
           <div className="dashboard-grid dashboard-grid--row">
             {/* Worlds */}
@@ -69,9 +77,9 @@ export default function AccountPage() {
             })}
 
             {/* MCP Connection */}
-            <Link href="/mcp" className="dashboard-world" style={{ borderColor: 'var(--border)' }}>
+            <Link href={isSubscribed ? "/settings" : "/mcp"} className={`dashboard-world${isSubscribed ? ' active' : ''}`} style={isSubscribed ? {} : { borderColor: 'var(--border)' }}>
               <span className="dashboard-world-label">MCP</span>
-              <span className="dashboard-world-desc">Connect to Claude</span>
+              <span className="dashboard-world-desc">{isSubscribed ? 'Connected' : 'Connect to Claude'}</span>
             </Link>
           </div>
         </div>

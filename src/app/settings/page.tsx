@@ -138,13 +138,37 @@ export default function SettingsPage() {
             {/* MCP */}
             <section className="settings-section">
               <h3>MCP Connection</h3>
-              <div className="account-row">
-                <span className="account-label">Status</span>
-                <span className="account-value" style={{ color: 'var(--text-muted)' }}>Not connected</span>
-              </div>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '12px' }}>
-                Complete your first course to receive your API key. <Link href="/mcp" className="account-action">Learn more</Link>
-              </p>
+              {meta.subscription_active ? (
+                <>
+                  <div className="account-row">
+                    <span className="account-label">Status</span>
+                    <span className="account-value" style={{ color: 'var(--success)' }}>Active</span>
+                  </div>
+                  <div className="account-row" style={{ marginTop: '12px' }}>
+                    <span className="account-label">Endpoint</span>
+                    <code style={{ fontFamily: 'monospace', fontSize: '0.85rem', color: 'var(--gold)' }}>getaccord.online/api/mcp</code>
+                  </div>
+                  {meta.mcp_api_key && (
+                    <div className="account-row" style={{ marginTop: '12px' }}>
+                      <span className="account-label">API Key</span>
+                      <code style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--text)', wordBreak: 'break-all' }}>{meta.mcp_api_key}</code>
+                    </div>
+                  )}
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '16px' }}>
+                    Add this server to Claude Desktop or Claude.ai. <Link href="/mcp" className="account-action">Setup guide</Link>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="account-row">
+                    <span className="account-label">Status</span>
+                    <span className="account-value" style={{ color: 'var(--text-muted)' }}>Not connected</span>
+                  </div>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '12px' }}>
+                    <Link href="/subscribe" className="account-action">Subscribe</Link> to activate your MCP connection. <Link href="/mcp" className="account-action">Learn more</Link>
+                  </p>
+                </>
+              )}
             </section>
 
             {/* Danger Zone */}
